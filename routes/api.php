@@ -27,7 +27,6 @@ Route::put('organisationunit/{id}', 'App\Http\Controllers\Api\OrganisationUnitsC
 Route::delete('organisationunit/{id}', 'App\Http\Controllers\Api\OrganisationUnitsController@delete');
 
 
-Route::post('datacollector/innovaphone', 'App\Http\Controllers\Api\DataCollectionController@innovaphone');
 Route::get('datacollector/innovaphone', 'App\Http\Controllers\Api\DataCollectionController@innovaphone');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
