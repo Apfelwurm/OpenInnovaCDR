@@ -12,7 +12,7 @@ class DataCollectionController extends Controller
     {
 
 
-        if (Storage::disk('local')->exists('innovaphonerequestlog.txt')) {
+        if (!Storage::disk('local')->exists('innovaphonerequestlog.txt')) {
 
             Storage::disk('local')->put('innovaphonerequestlog.txt', json_encode($request));
 

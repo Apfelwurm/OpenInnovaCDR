@@ -24,3 +24,7 @@ sail-up:
 #sail ps
 sail-ps:
 	$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))/vendor/laravel/sail/bin/sail ps
+
+#sail logs
+sail-logss:
+	$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))/vendor/laravel/sail/bin/sail logs
