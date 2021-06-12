@@ -14,12 +14,12 @@ class DataCollectionController extends Controller
 
         if (!Storage::disk('local')->exists('innovaphonerequestlog.txt')) {
 
-            Storage::disk('local')->put('innovaphonerequestlog.txt', json_encode($request));
+            Storage::disk('local')->put('innovaphonerequestlog.txt', json_encode($request->all()));
 
         }
         else
         {
-            Storage::disk('local')->append('innovaphonerequestlog.txt', json_encode($request));
+            Storage::disk('local')->append('innovaphonerequestlog.txt', json_encode($request->all()));
 
         }
 
