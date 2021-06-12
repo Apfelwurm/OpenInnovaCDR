@@ -5,7 +5,6 @@ composer-install:
     --user $(id -u):$(id -g) \
     composer install --ignore-platform-reqs --no-scripts
 
-
 #sail shell
 sail-shell:
-    ./vendor/laravel/sail/bin/sail shell
+	$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))/vendor/laravel/sail/bin/sail shell
