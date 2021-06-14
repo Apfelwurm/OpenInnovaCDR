@@ -13,6 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+/**
+ * Install
+ */
+Route::group(['middleware' => ['web', 'notInstalled']], function () {
+    Route::get('/install', 'InstallController@installation');
+    Route::post('/install', 'InstallController@install');
+});
+
+Route::group(['middleware' => ['installed']], function () {
+
+    Route::get('/', 'HomeController@index');
+
 });
