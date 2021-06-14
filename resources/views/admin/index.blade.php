@@ -16,7 +16,7 @@
 </div>
 
 <div class="row">
-	<div class="col-lg-3 col-md-6">
+	<div class="col-md-auto">
 		<div class="card mb-3">
 			<div class="card-header">
 				<i class="fa fa-users fa-fw"></i> Unassigned Callers
@@ -26,7 +26,7 @@
 
 
 
-                    <table class="table table-striped table-hover table-responsive">
+                    <table class="table table-striped table-hover table-responsive ">
                         <thead>
                             <tr>
                                 <th>Name</th>
