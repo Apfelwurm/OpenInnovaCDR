@@ -3,7 +3,7 @@ version: '3'
 services:
     laravel.test:
         build:
-            context: ./docker
+            context: ./docker_proxy
             dockerfile: Dockerfile
             args:
                 WWWGROUP: '${WWWGROUP}'
@@ -13,6 +13,8 @@ services:
         environment:
             WWWUSER: '${WWWUSER}'
             LARAVEL_SAIL: 1
+            https_proxy: http://proxy.local:3128
+            http_proxy: http://proxy.local:3128
         volumes:
             - '.:/var/www/html'
         networks:
