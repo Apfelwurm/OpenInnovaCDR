@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Caller;
 use App\Http\Controllers\Controller;
+use App\Models\OrganisationUnit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -119,4 +120,43 @@ class CallerController extends Controller
 
         return Redirect::to('/admin/callers/');
     }
+
+
+    public function assign(Caller $caller, OrganisationUnit $organisationUnit)
+    {
+        if (!Auth::user()->isAdmin) {
+            Session::flash('alert-danger', 'You do not have permissions to do this!');
+            return Redirect::back();
+        }
+        $caller->organisation_unit_id = $organisationUnit->id;
+
+        if (!$caller->save()) {
+            Session::flash('alert-danger', 'Cannot update Caller!');
+            return Redirect::back();
+        }
+
+        Session::flash('alert-info', 'Caller assigned from OU');
+        return Redirect::back();
+    }
+
+    public function unassign(Caller $caller)
+    {
+        if (!Auth::user()->isAdmin) {
+            Session::flash('alert-danger', 'You do not have permissions to do this!');
+            return Redirect::back();
+        }
+        $caller->organisation_unit_id = null;
+
+        if (!$caller->save()) {
+            Session::flash('alert-danger', 'Cannot update Caller!');
+            return Redirect::back();
+        }
+
+        Session::flash('alert-info', 'Caller unassigned from OU');
+        return Redirect::back();
+    }
+
+
+
+
 }

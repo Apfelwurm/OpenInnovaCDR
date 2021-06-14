@@ -15,4 +15,16 @@ class Caller extends Model
         return $this->belongsTo('App\Models\OrganisationUnit');
     }
 
+    public static function getUnassignedPaginated()
+    {
+        return self::where('organisation_unit_id', null)->paginate(20);
+    }
+
+    public static function getAssignedPaginated(OrganisationUnit $organisationUnit)
+    {
+        return self::where('organisation_unit_id', $organisationUnit->id)->paginate(20);
+    }
+
+
+
 }

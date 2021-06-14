@@ -55,6 +55,8 @@ Route::group(['middleware' => ['App\Http\Middleware\Installed']], function () {
         */
        Route::get('/admin/callers', 'App\Http\Controllers\Admin\CallerController@index');
        Route::post('/admin/callers/add', 'App\Http\Controllers\Admin\CallerController@store');
+       Route::post('/admin/callers/{caller}/assign/{organisationUnit}', 'App\Http\Controllers\Admin\CallerController@assign');
+       Route::post('/admin/callers/{caller}/unassign', 'App\Http\Controllers\Admin\CallerController@unassign');
        Route::post('/admin/callers/{caller}', 'App\Http\Controllers\Admin\CallerController@update');
        Route::get('/admin/callers/{caller}', 'App\Http\Controllers\Admin\CallerController@show');
        Route::delete('/admin/callers/{caller}/delete', 'App\Http\Controllers\Admin\CallerController@remove');

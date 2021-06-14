@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Models\OrganisationUnit;
+use App\Models\Caller;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +21,9 @@ class OrganisationUnitController extends Controller
     {
         return view('admin.organisationunits.show')
         ->withUser(Auth::user())
-        ->withOrganisationUnit($organisationUnit);
+        ->withOrganisationUnit($organisationUnit)
+        ->withUnassignedCallers(Caller::getUnassignedPaginated())
+        ->withAssignedCallers(Caller::getAssignedPaginated($organisationUnit));
     }
 
     public function store(Request $request)

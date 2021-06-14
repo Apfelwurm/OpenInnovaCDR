@@ -26,6 +26,38 @@
 			<div class="card-body">
 				<div class="row">
 
+
+
+                    <table class="table table-striped table-hover table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Number</th>
+                                <th>Assign</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($unassignedCallers as $caller)
+                                <tr>
+                                    <td>
+                                        {{ $caller->name }}
+                                    </td>
+                                    <td>
+                                        {{ $caller->number }}
+                                    </td>
+
+                                    <td>
+                                        {{ Form::open(array('url'=>'/admin/callers/' . $caller->id . '/assign/' . $organisationUnit->id )) }}
+
+                                        <button type="submit" class="btn btn-primary btn-sm btn-block">Assign</button>
+                                        {{ Form::close() }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    {{ $unassignedCallers->links() }}
+
 				</div>
 
 			</div>
@@ -58,7 +90,34 @@
 			</div>
 			<div class="card-body">
 				<div class="row">
+                    <table class="table table-striped table-hover table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Number</th>
+                                <th>Unassign</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($assignedCallers as $caller)
+                                <tr>
+                                    <td>
+                                        {{ $caller->name }}
+                                    </td>
+                                    <td>
+                                        {{ $caller->number }}
+                                    </td>
+                                    <td>
+                                        {{ Form::open(array('url'=>'/admin/callers/' . $caller->id . '/unassign' , 'onsubmit' => 'return ConfirmDelete()')) }}
 
+                                        <button type="submit" class="btn btn-danger btn-sm btn-block">Unassign</button>
+                                        {{ Form::close() }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    {{ $assignedCallers->links() }}
 				</div>
 
 			</div>

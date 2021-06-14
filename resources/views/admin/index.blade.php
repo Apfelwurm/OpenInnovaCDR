@@ -17,25 +17,43 @@
 
 <div class="row">
 	<div class="col-lg-3 col-md-6">
-		<div class="card panel-blue mb-3">
+		<div class="card mb-3">
 			<div class="card-header">
-				<div class="row">
-					<div class="col-3">
-						<i class="fas fa-comments fa-5x"></i>
-					</div>
-					<div class="col-9 text-right">
-						<div>New Comments!</div>
-					</div>
-				</div>
+				<i class="fa fa-users fa-fw"></i> Unassigned Callers
 			</div>
-			<a href="/admin/news">
-				<div class="card-footer">
-					<span class="float-left">View Details</span>
-					<span class="float-right"><i class="fa fa-arrow-circle-right"></i></span>
-					<div class="clearfix"></div>
+			<div class="card-body">
+				<div class="row">
+
+
+
+                    <table class="table table-striped table-hover table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Number</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($unassignedCallers as $caller)
+                                <tr>
+                                    <td>
+                                        {{ $caller->name }}
+                                    </td>
+                                    <td>
+                                        {{ $caller->number }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    {{ $unassignedCallers->links() }}
+
 				</div>
-			</a>
+
+			</div>
 		</div>
+
+	</div>
 	</div>
 
 
