@@ -16,10 +16,10 @@ class CreatePhoneCallEventsTable extends Migration
         Schema::create('phone_call_events', function (Blueprint $table) {
             $table->id();
             $table->string('msg');
-            $table->integer('time');
+            $table->bigInteger('time');
             $table->string('type')->nullable();
-            $table->integer('e164')->nullable();
-            $table->integer('root')->nullable();
+            $table->string('e164')->nullable();
+            $table->string('root')->nullable();
             $table->string('h323')->nullable();
             $table->string('conf')->nullable();
             $table->string('cause')->nullable();

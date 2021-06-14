@@ -15,18 +15,18 @@ class CreatePhoneCallsTable extends Migration
     {
         Schema::create('phone_calls', function (Blueprint $table) {
             $table->id();
-            $table->string('guid');
-            $table->string('sys');
-            $table->string('pbx');
-            $table->string('node');
-            $table->string('cn');
-            $table->string('e164');
-            $table->string('h323');
-            $table->string('device');
-            $table->string('dir');
-            $table->string('utc');
-            $table->string('local');
-            $table->bigInteger('caller_id')->unsigned();
+            $table->string('guid')->nullable();
+            $table->string('sys')->nullable();
+            $table->string('pbx')->nullable();
+            $table->string('node')->nullable();
+            $table->string('cn')->nullable();
+            $table->string('e164')->nullable();
+            $table->string('h323')->nullable();
+            $table->string('device')->nullable();
+            $table->string('dir')->nullable();
+            $table->string('utc')->nullable();
+            $table->string('local')->nullable();
+            $table->bigInteger('caller_id')->nullable()->unsigned();
             $table->timestamps();
             $table->foreign('caller_id')->references('id')->on('callers')->onDelete('cascade');
         });
