@@ -36,12 +36,28 @@ Route::group(['middleware' => ['App\Http\Middleware\Installed']], function () {
         /**
          * Users
          */
-        Route::get('/admin/users', 'App\Http\Controllers\Admin\UsersController@index');
-        Route::post('/admin/users/add', 'App\Http\Controllers\Admin\UsersController@add');
-        Route::get('/admin/users/{user}', 'App\Http\Controllers\Admin\UsersController@show');
-        Route::delete('/admin/users/{user}', 'App\Http\Controllers\Admin\UsersController@remove');
-        Route::post('/admin/users/{user}/admin', 'App\Http\Controllers\Admin\UsersController@grantAdmin');
-        Route::delete('/admin/users/{user}/admin', 'App\Http\Controllers\Admin\UsersController@removeAdmin');
+        Route::get('/admin/users', 'App\Http\Controllers\Admin\UserController@index');
+        Route::post('/admin/users/add', 'App\Http\Controllers\Admin\UserController@add');
+        Route::get('/admin/users/{user}', 'App\Http\Controllers\Admin\UserController@show');
+        Route::delete('/admin/users/{user}', 'App\Http\Controllers\Admin\UserController@remove');
+        Route::post('/admin/users/{user}/admin', 'App\Http\Controllers\Admin\UserController@grantAdmin');
+        Route::delete('/admin/users/{user}/admin', 'App\Http\Controllers\Admin\UserController@removeAdmin');
+        /**
+        * Organisation Units
+         */
+        Route::get('/admin/organisationunits', 'App\Http\Controllers\Admin\OrganisationUnitController@index');
+        Route::post('/admin/organisationunits/add', 'App\Http\Controllers\Admin\OrganisationUnitController@store');
+        Route::post('/admin/organisationunits/{organisationUnit}', 'App\Http\Controllers\Admin\OrganisationUnitController@update');
+        Route::get('/admin/organisationunits/{organisationUnit}', 'App\Http\Controllers\Admin\OrganisationUnitController@show');
+        Route::delete('/admin/organisationunits/{organisationUnit}/delete', 'App\Http\Controllers\Admin\OrganisationUnitController@remove');
+        /**
+        * Callers
+        */
+       Route::get('/admin/callers', 'App\Http\Controllers\Admin\CallerController@index');
+       Route::post('/admin/callers/add', 'App\Http\Controllers\Admin\CallerController@store');
+       Route::post('/admin/callers/{caller}', 'App\Http\Controllers\Admin\CallerController@update');
+       Route::get('/admin/callers/{caller}', 'App\Http\Controllers\Admin\CallerController@show');
+       Route::delete('/admin/callers/{caller}/delete', 'App\Http\Controllers\Admin\CallerController@remove');
     });
 
     Route::group(['middleware' => ['auth']], function () {

@@ -12,7 +12,7 @@ class Caller extends Model
 
     public function organisationUnit()
     {
-        return $this->belongsTo('App\OrganisationUnit');
+        return $this->belongsTo('App\Models\OrganisationUnit');
     }
 
 }

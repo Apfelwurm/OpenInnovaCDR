@@ -14,17 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('phonecallevents', 'App\Http\Controllers\Api\PhoneCallEventsController@index');
-Route::get('phonecallevents/{id}', 'App\Http\Controllers\Api\PhoneCallEventsController@show');
-Route::post('phonecallevents', 'App\Http\Controllers\Api\PhoneCallEventsController@store');
-Route::put('phonecallevents/{id}', 'App\Http\Controllers\Api\PhoneCallEventsController@update');
-Route::delete('phonecallevents/{id}', 'App\Http\Controllers\Api\PhoneCallEventsController@delete');
-
-Route::get('organisationunit', 'App\Http\Controllers\Api\OrganisationUnitsController@index');
-Route::get('organisationunit/{id}', 'App\Http\Controllers\Api\OrganisationUnitsController@show');
-Route::post('organisationunit', 'App\Http\Controllers\Api\OrganisationUnitsController@store');
-Route::put('organisationunit/{id}', 'App\Http\Controllers\Api\OrganisationUnitsController@update');
-Route::delete('organisationunit/{id}', 'App\Http\Controllers\Api\OrganisationUnitsController@delete');
 
 
 Route::get('datacollector/innovaphone', 'App\Http\Controllers\Api\DataCollectionController@innovaphone');

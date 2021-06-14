@@ -13,7 +13,7 @@ class OrganisationUnit extends Model
 
     public function callers()
     {
-        return $this->hasMany('App\Caller');
+        return $this->hasMany('App\Models\Caller');
     }
 
 

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
 
-class UsersController extends Controller
+class UserController extends Controller
 {
     /**
      * Show Users Index Page
@@ -123,7 +123,6 @@ class UsersController extends Controller
         $user->username         	= $request->username;
         $user->username_nice    	= strtolower(str_replace(' ', '-', $request->username));
         $user->isAdmin              = ($request->isAdmin ? true : false);
-        $user->save();
 
         if (!$user->save()) {
             Session::flash('alert-danger', 'Cannot create user!');

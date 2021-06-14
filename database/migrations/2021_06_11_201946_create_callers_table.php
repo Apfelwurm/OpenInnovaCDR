@@ -15,13 +15,13 @@ class CreateCallersTable extends Migration
     {
         Schema::create('callers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('number')->unique();
-            $table->bigInteger('organisation_unit_id')->unsigned();
+            $table->string('name')->unique();
+            $table->string('number')->unique();
+            $table->bigInteger('organisation_unit_id')->unsigned()->nullable()->default(null);
             $table->timestamps();
 
 
-            $table->foreign('organisation_unit_id')->references('id')->on('organisation_units')->onDelete('cascade');
+            $table->foreign('organisation_unit_id')->references('id')->on('organisation_units')->nullable()->cascadeOnUpdate()->nullOnDelete();
 
         });
     }

@@ -14,7 +14,7 @@ class PhoneCallEvent extends Model
 
     public function phoneCall()
     {
-        return $this->belongsTo('App\PhoneCall');
+        return $this->belongsTo('App\Models\PhoneCall');
     }
 
 

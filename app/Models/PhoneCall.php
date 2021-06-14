@@ -12,7 +12,7 @@ class PhoneCall extends Model
 
     public function phoneCallEvents()
     {
-        return $this->hasMany('App\PhoneCallEvent');
+        return $this->hasMany('App\Models\PhoneCallEvent');
     }
 
 

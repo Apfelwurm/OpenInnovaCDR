@@ -17,6 +17,12 @@
             <li class="nav-item {{ Request::is('admin/users') ? 'active' : '' }}">
 				<a class="nav-link" href="/admin/users"><i class="fa fa-user fa-fw"></i> Users</a>
 			</li>
+            <li class="nav-item {{ Request::is('admin/organisationunits') ? 'active' : '' }}">
+				<a class="nav-link" href="/admin/organisationunits"><i class="fa fa-building fa-fw"></i> Organisation Units</a>
+			</li>
+            <li class="nav-item {{ Request::is('admin/callers') ? 'active' : '' }}">
+				<a class="nav-link" href="/admin/callers"><i class="fas fa-phone fa-fw"></i> Callers</a>
+			</li>
 		</ul>
 	</div>
 	<!-- /.navbar-collapse -->
