@@ -1,17 +1,35 @@
 const mix = require('laravel-mix');
+require('laravel-mix-purgecss');
+var path = require('path');
 
-/*
- |--------------------------------------------------------------------------
- | Mix Asset Management
- |--------------------------------------------------------------------------
- |
- | Mix provides a clean, fluent API for defining some Webpack build steps
- | for your Laravel applications. By default, we are compiling the CSS
- | file for the application as well as bundling up all the JS files.
- |
- */
+mix.sass('resources/sass/app.scss', 'public/css')
+    .sass('resources/sass/admin.scss', 'public/css').options({
+        processCssUrls: false,
+        uglify: {
+            parallel: 4, // Use multithreading for the processing
+            uglifyOptions: {
+                mangle: true,
+                compress: false, // The slow bit
+            }
+        }
+    });
 
-mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+if (mix.inProduction()) {
+    mix.purgeCss({
+        extend: {
+        content: [path.join(__dirname, './node_modules/summernote/dist/*.js')],
+        },
+    }); // remove unused css rules
+}
+
+mix.scripts([
+        './node_modules/jquery/dist/jquery.js',
+        './node_modules/jquery-ui-dist/jquery-ui.min.js',
+        './node_modules/popper.js/dist/umd/popper.min.js',
+        './node_modules/bootstrap/dist/js/bootstrap.js',
+        './node_modules/summernote/dist/summernote-bs4.js',
+    ], 'public/js/vendor.js')
+    .copy('./node_modules/jquery-ui-dist/jquery-ui.min.css', 'public/css')
+    .copyDirectory('./node_modules/jquery-ui-dist/images', 'public/css/images')
+    .copyDirectory('./node_modules/summernote/dist/font', 'public/css/font')
+    .copyDirectory('./node_modules/@fortawesome/fontawesome-free/webfonts', 'public/css/font');
