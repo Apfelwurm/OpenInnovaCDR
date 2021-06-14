@@ -1,7 +1,8 @@
 <?php
 
 namespace Database\Seeders;
-
+use App\Models\Setting;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +14,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+
+        ## House Cleaning
+        DB::table('settings')->truncate();
+
+        ## Settings
+        Setting::firstOrCreate(
+            ['setting'          => 'installed'],
+            [
+                'value'         => false,
+                'default'       => false,
+                'description'   => 'Is OpenInnovaCDR installed'
+            ]
+        );
     }
 }
