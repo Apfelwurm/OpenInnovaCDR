@@ -7,6 +7,7 @@
 <div class="row">
 	<div class="col-lg-12">
 		<h3 class="pb-2 mt-4 mb-4 border-bottom"><i class="fa fa-dashboard"></i> Dashboard</h3>
+        @include ('layouts.admin-warnings')
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item active">
 				Dashboard
@@ -94,10 +95,10 @@
                                     <i class="fas fa-play fa-1x" style="color:orange"></i> Running
                                     @endif
                                     @if ($report->status == "finished")
-                                    <i class="fas fa-check-circle-o fa-1x" style="color:green"></i> Finished
+                                    <i class="fa fa-check-circle-o fa-1x" style="color:green"></i> Finished
                                     @endif
                                     @if ($report->status == "error")
-                                    <i class="fas fa-times-circle-o fa-1x" style="color:red"></i> Error
+                                    <i class="fa fa-times-circle-o fa-1x" style="color:red"></i> Error
                                     @endif
                                 </td>
                                 <td>

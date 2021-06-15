@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Report;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
+use App\Libraries\Helpers;
 class ReportNotRunning
 {
     /**
@@ -18,7 +19,7 @@ class ReportNotRunning
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Report::where('status', 'running')->count() > 0)
+        if (Helpers::isReportRunning())
         {
             Session::flash('alert-danger', 'Currently a Report is running, be patient!');
             return Redirect::back();

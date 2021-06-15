@@ -7,6 +7,7 @@
 <div class="row">
 	<div class="col-lg-12">
 		<h3 class="pb-2 mt-4 mb-4 border-bottom"><i class="fas fa-cog"></i> Settings</h3>
+        @include ('layouts.admin-warnings')
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item active">
 				Settings

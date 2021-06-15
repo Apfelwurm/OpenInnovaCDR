@@ -3,7 +3,7 @@
 namespace App\Libraries;
 
 use Illuminate\Support\Facades\Cache;
-
+use App\Models\Report;
 
 class Helpers
 {
@@ -20,5 +20,23 @@ class Helpers
             return $int;
         });
     }
+
+     /**
+     * Check if any Report is running
+     * @return integer
+     */
+    public static function isReportRunning()
+    {
+
+        if (Report::where('status', 'running')->count() > 0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+
+
+
 
 }

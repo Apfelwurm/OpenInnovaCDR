@@ -34,7 +34,7 @@ class ReportTemplateController extends Controller
 
             'type'          	=> 'required|in:time,cost',
             'output_format'     => 'required|in:PDF',
-            'schedule'     	=> 'required|in:monthly,weekly,daily',
+            'schedule'     	=> 'required|in:monthly,weekly,daily,disabled,once',
             'timespan'     	=> 'required|in:one month back from now,last month,current month,one week back from now,last week,current week,one day back from now,yesterday,today',
             'start_date'    => 'required|date_format:m/d/Y',
             'start_time'    => 'required|date_format:H:i',
@@ -84,7 +84,7 @@ class ReportTemplateController extends Controller
         $rules = [
             'type'          	=> 'required|in:time,cost',
             'output_format'     => 'required|in:PDF',
-            'schedule'     	=> 'required|in:monthly,weekly,daily',
+            'schedule'     	=> 'required|in:monthly,weekly,daily,disabled,once',
             'timespan'     	=> 'required|in:one month back from now,last month,current month,one week back from now,last week,current week,one day back from now,yesterday,today',
             'start_date'    => 'required|date_format:m/d/Y',
             'start_time'    => 'required|date_format:H:i',

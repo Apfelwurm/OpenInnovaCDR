@@ -63,6 +63,7 @@
 	<body>
 		<div id="wrapper">
 			@include ('layouts.admin-navigation')
+
 			<div id="page-wrapper">
 				<div class="container-fluid">
 
