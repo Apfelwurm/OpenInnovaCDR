@@ -30,9 +30,33 @@ Route::group(['middleware' => ['App\Http\Middleware\Installed']], function () {
     Route::post('/login', 'App\Http\Controllers\Auth\LoginController@login');
     Route::get('/login', 'App\Http\Controllers\Auth\LoginController@index');
 
+
+
     Route::group(['middleware' => ['auth','App\Http\Middleware\Admin']], function () {
+
         Route::get('/admin', 'App\Http\Controllers\Admin\AdminController@index');
 
+        /**
+         * Reports
+         */
+        Route::get('/admin/reports/templates', 'App\Http\Controllers\Admin\ReportTemplateController@index');
+
+        Route::group(['middleware' => ['App\Http\Middleware\ReportNotRunning']], function () {
+            Route::post('/admin/reports/templates/add', 'App\Http\Controllers\Admin\ReportTemplateController@add');
+        });
+
+        Route::get('/admin/reports/templates/{reportTemplate}', 'App\Http\Controllers\Admin\ReportTemplateController@show');
+
+        Route::group(['middleware' => ['App\Http\Middleware\ReportNotRunning']], function () {
+            Route::post('/admin/reports/templates/{reportTemplate}', 'App\Http\Controllers\Admin\ReportTemplateController@update');
+            Route::delete('/admin/reports/templates/{reportTemplate}/delete', 'App\Http\Controllers\Admin\ReportTemplateController@remove');
+        });
+
+        Route::get('/admin/reports', 'App\Http\Controllers\Admin\ReportController@index');
+        Route::get('/admin/reports/{report}', 'App\Http\Controllers\Admin\ReportController@show');
+
+
+       /**
         /**
          * Users
          */
@@ -46,33 +70,47 @@ Route::group(['middleware' => ['App\Http\Middleware\Installed']], function () {
         * Organisation Units
          */
         Route::get('/admin/organisationunits', 'App\Http\Controllers\Admin\OrganisationUnitController@index');
-        Route::post('/admin/organisationunits/add', 'App\Http\Controllers\Admin\OrganisationUnitController@store');
-        Route::post('/admin/organisationunits/{organisationUnit}', 'App\Http\Controllers\Admin\OrganisationUnitController@update');
+        Route::group(['middleware' => ['App\Http\Middleware\ReportNotRunning']], function () {
+            Route::post('/admin/organisationunits/add', 'App\Http\Controllers\Admin\OrganisationUnitController@store');
+            Route::post('/admin/organisationunits/{organisationUnit}', 'App\Http\Controllers\Admin\OrganisationUnitController@update');
+        });
         Route::get('/admin/organisationunits/{organisationUnit}', 'App\Http\Controllers\Admin\OrganisationUnitController@show');
-        Route::delete('/admin/organisationunits/{organisationUnit}/delete', 'App\Http\Controllers\Admin\OrganisationUnitController@remove');
+        Route::group(['middleware' => ['App\Http\Middleware\ReportNotRunning']], function () {
+            Route::delete('/admin/organisationunits/{organisationUnit}/delete', 'App\Http\Controllers\Admin\OrganisationUnitController@remove');
+        });
         /**
         * Callers
         */
-       Route::get('/admin/callers', 'App\Http\Controllers\Admin\CallerController@index');
-       Route::post('/admin/callers/add', 'App\Http\Controllers\Admin\CallerController@store');
-       Route::post('/admin/callers/{caller}/assign/{organisationUnit}', 'App\Http\Controllers\Admin\CallerController@assign');
-       Route::post('/admin/callers/{caller}/unassign', 'App\Http\Controllers\Admin\CallerController@unassign');
-       Route::post('/admin/callers/{caller}', 'App\Http\Controllers\Admin\CallerController@update');
-       Route::get('/admin/callers/{caller}', 'App\Http\Controllers\Admin\CallerController@show');
-       Route::delete('/admin/callers/{caller}/delete', 'App\Http\Controllers\Admin\CallerController@remove');
+        Route::get('/admin/callers', 'App\Http\Controllers\Admin\CallerController@index');
+        Route::group(['middleware' => ['App\Http\Middleware\ReportNotRunning']], function () {
+        Route::post('/admin/callers/add', 'App\Http\Controllers\Admin\CallerController@store');
+            Route::post('/admin/callers/{caller}/assign/{organisationUnit}', 'App\Http\Controllers\Admin\CallerController@assign');
+            Route::post('/admin/callers/{caller}/unassign', 'App\Http\Controllers\Admin\CallerController@unassign');
+            Route::post('/admin/callers/{caller}', 'App\Http\Controllers\Admin\CallerController@update');
+        });
+        Route::get('/admin/callers/{caller}', 'App\Http\Controllers\Admin\CallerController@show');
+        Route::group(['middleware' => ['App\Http\Middleware\ReportNotRunning']], function () {
+            Route::delete('/admin/callers/{caller}/delete', 'App\Http\Controllers\Admin\CallerController@remove');
+        });
         /**
          * NumberFilterSettings
          */
         Route::get('/admin/numberfiltersettings', 'App\Http\Controllers\Admin\NumberFilterSettingsController@index');
-        Route::post('/admin/numberfiltersettings/add', 'App\Http\Controllers\Admin\NumberFilterSettingsController@add');
+        Route::group(['middleware' => ['App\Http\Middleware\ReportNotRunning']], function () {
+            Route::post('/admin/numberfiltersettings/add', 'App\Http\Controllers\Admin\NumberFilterSettingsController@add');
+        });
         Route::get('/admin/numberfiltersettings/{numberFilterSetting}', 'App\Http\Controllers\Admin\NumberFilterSettingsController@show');
-        Route::post('/admin/numberfiltersettings/{numberFilterSetting}', 'App\Http\Controllers\Admin\NumberFilterSettingsController@update');
-        Route::delete('/admin/numberfiltersettings/{numberFilterSetting}/delete', 'App\Http\Controllers\Admin\NumberFilterSettingsController@remove');
-       /**
+        Route::group(['middleware' => ['App\Http\Middleware\ReportNotRunning']], function () {
+            Route::post('/admin/numberfiltersettings/{numberFilterSetting}', 'App\Http\Controllers\Admin\NumberFilterSettingsController@update');
+            Route::delete('/admin/numberfiltersettings/{numberFilterSetting}/delete', 'App\Http\Controllers\Admin\NumberFilterSettingsController@remove');
+        });
+        /**
         * Settings
         */
-       Route::get('/admin/settings', 'App\Http\Controllers\Admin\SettingsController@index');
-       Route::post('/admin/settings', 'App\Http\Controllers\Admin\SettingsController@update');
+        Route::get('/admin/settings', 'App\Http\Controllers\Admin\SettingsController@index');
+        Route::group(['middleware' => ['App\Http\Middleware\ReportNotRunning']], function () {
+            Route::post('/admin/settings', 'App\Http\Controllers\Admin\SettingsController@update');
+        });
     });
 
     Route::group(['middleware' => ['auth']], function () {

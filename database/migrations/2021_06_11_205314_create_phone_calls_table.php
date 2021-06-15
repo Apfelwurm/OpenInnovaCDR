@@ -28,7 +28,7 @@ class CreatePhoneCallsTable extends Migration
             $table->string('local')->nullable();
             $table->bigInteger('caller_id')->nullable()->unsigned();
             $table->timestamps();
-            $table->foreign('caller_id')->references('id')->on('callers')->onDelete('cascade');
+            $table->foreign('caller_id')->references('id')->on('callers')->cascadeOnUpdate()->nullOnDelete();
         });
     }
 

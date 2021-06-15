@@ -118,7 +118,7 @@
                         {{ Form::label('direction','Direction',array('id'=>'','class'=>'')) }}
                                 <select class="form-control @error('direction') is-invalid @enderror" name="direction" id="direction" aria-describedby="direction" value="{{ old('direction', App\Models\NumberFilterSetting::getAvailableDirections()[0]) }}">
                                     @foreach (App\Models\NumberFilterSetting::getAvailableDirections() as $direction)
-                                        <option value="{{ $direction }}" {{ ( $direction == old('priority', App\Models\NumberFilterSetting::getAvailableDirections()[0])) ? 'selected' : '' }}>
+                                        <option value="{{ $direction }}" {{ ( $direction == old('direction', App\Models\NumberFilterSetting::getAvailableDirections()[0])) ? 'selected' : '' }}>
                                             {{ $direction }}
                                         </option>
                                     @endforeach

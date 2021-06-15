@@ -14,8 +14,8 @@
 			<li class="nav-item {{ Request::is('admin') ? 'active' : '' }}">
 				<a class="nav-link" href="/admin"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
 			</li>
-            <li class="nav-item {{ Request::is('admin/users') ? 'active' : '' }}">
-				<a class="nav-link" href="/admin/users"><i class="fa fa-user fa-fw"></i> Users</a>
+            <li class="nav-item {{ Request::is('admin/reports') ? 'active' : '' }}">
+				<a class="nav-link" href="/admin/reports"><i class="fas fa-newspaper fa-fw"></i> Reports</a>
 			</li>
             <li class="nav-item {{ Request::is('admin/organisationunits') ? 'active' : '' }}">
 				<a class="nav-link" href="/admin/organisationunits"><i class="fa fa-building fa-fw"></i> Organisation Units</a>
@@ -25,6 +25,9 @@
 			</li>
             <li class="nav-item {{ Request::is('admin/numberfiltersettings') ? 'active' : '' }}">
 				<a class="nav-link" href="/admin/numberfiltersettings"><i class="fas fa-filter fa-fw"></i> Number Filter Settings</a>
+			</li>
+            <li class="nav-item {{ Request::is('admin/users') ? 'active' : '' }}">
+				<a class="nav-link" href="/admin/users"><i class="fa fa-user fa-fw"></i> User Management</a>
 			</li>
             <li class="nav-item {{ Request::is('admin/settings') ? 'active' : '' }}">
 				<a class="nav-link" href="/admin/settings"><i class="fas fa-cog fa-fw"></i> Settings</a>
