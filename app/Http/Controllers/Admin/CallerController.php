@@ -23,6 +23,7 @@ class CallerController extends Controller
     {
         return view('admin.callers.show')
         ->withUser(Auth::user())
+        ->withOrganisationUnits(OrganisationUnit::paginate(20))
         ->withCaller($caller);
     }
 
@@ -33,12 +34,11 @@ class CallerController extends Controller
             return Redirect::back();
         }
         $rules = [
-            'name'     	=> 'required|unique:callers,name',
+            'name'     	=> 'required',
             'number'     	=> 'required|unique:callers,number',
         ];
         $messages = [
             'name.required'     				=> 'Name is required',
-            'name.unique'     				=> 'Name exists already',
             'number.required'     				=> 'Number is required',
             'number.unique'     				=> 'Number exists already',
 
@@ -70,11 +70,10 @@ class CallerController extends Controller
         if ($caller->name != $request->name)
         {
             $rules = [
-                'name'     	=> 'required|unique:callers,name',
+                'name'     	=> 'required',
             ];
             $messages = [
                 'name.required'     				=> 'Name is required',
-                'name.unique'     				=> 'Name exists already',
             ];
             $this->validate($request, $rules, $messages);
 
@@ -135,7 +134,7 @@ class CallerController extends Controller
             return Redirect::back();
         }
 
-        Session::flash('alert-info', 'Caller assigned from OU');
+        Session::flash('alert-info', 'Caller assigned to OU');
         return Redirect::back();
     }
 

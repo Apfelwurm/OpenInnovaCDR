@@ -26,8 +26,8 @@
 				<table class="table table-striped table-hover table-responsive">
 					<thead>
 						<tr>
-							<th>Name</th>
 							<th>Number</th>
+							<th>Name</th>
 							<th>OU</th>
 							<th>Edit</th>
 							<th>Delete</th>
@@ -37,10 +37,10 @@
 						@foreach ($callers as $caller)
 							<tr>
 								<td>
-									{{ $caller->name }}
+									{{ $caller->number }}
 								</td>
                                 <td>
-									{{ $caller->number }}
+									{{ $caller->name }}
 								</td>
                                  <td>
                                     @if ($caller->organisationUnit != null)

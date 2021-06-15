@@ -60,6 +60,19 @@ Route::group(['middleware' => ['App\Http\Middleware\Installed']], function () {
        Route::post('/admin/callers/{caller}', 'App\Http\Controllers\Admin\CallerController@update');
        Route::get('/admin/callers/{caller}', 'App\Http\Controllers\Admin\CallerController@show');
        Route::delete('/admin/callers/{caller}/delete', 'App\Http\Controllers\Admin\CallerController@remove');
+        /**
+         * NumberFilterSettings
+         */
+        Route::get('/admin/numberfiltersettings', 'App\Http\Controllers\Admin\NumberFilterSettingsController@index');
+        Route::post('/admin/numberfiltersettings/add', 'App\Http\Controllers\Admin\NumberFilterSettingsController@add');
+        Route::get('/admin/numberfiltersettings/{numberFilterSetting}', 'App\Http\Controllers\Admin\NumberFilterSettingsController@show');
+        Route::post('/admin/numberfiltersettings/{numberFilterSetting}', 'App\Http\Controllers\Admin\NumberFilterSettingsController@update');
+        Route::delete('/admin/numberfiltersettings/{numberFilterSetting}/delete', 'App\Http\Controllers\Admin\NumberFilterSettingsController@remove');
+       /**
+        * Settings
+        */
+       Route::get('/admin/settings', 'App\Http\Controllers\Admin\SettingsController@index');
+       Route::post('/admin/settings', 'App\Http\Controllers\Admin\SettingsController@update');
     });
 
     Route::group(['middleware' => ['auth']], function () {

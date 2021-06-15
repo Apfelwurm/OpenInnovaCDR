@@ -23,8 +23,27 @@ class DatabaseSeeder extends Seeder
             ['setting'          => 'installed'],
             [
                 'value'         => false,
+                'type'          => 'BOOL',
                 'default'       => false,
                 'description'   => 'Is OpenInnovaCDR installed'
+            ]
+        );
+        Setting::firstOrCreate(
+            ['setting'          => 'automatic_caller_creation'],
+            [
+                'value'         => true,
+                'type'          => 'BOOL',
+                'default'       => true,
+                'description'   => 'enable automatic creation of callers from CDRs'
+            ]
+        );
+        Setting::firstOrCreate(
+            ['setting'          => 'automatic_caller_update'],
+            [
+                'value'         => true,
+                'type'          => 'BOOL',
+                'default'       => true,
+                'description'   => 'enable automatic update of callers from CDRs'
             ]
         );
     }

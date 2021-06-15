@@ -16,6 +16,7 @@ class CreateSettingsTable extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->string('setting');
+            $table->enum('type', array('BOOL','INT','STRING'));
             $table->string('value')->nullable()->default(null);
             $table->string('description')->nullable();
             $table->boolean('default')->default(0);

@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\PhoneCall;
 use App\Models\PhoneCallEvent;
+use App\Models\Caller;
 use Throwable;
 use Illuminate\Support\Facades\Log;
+use App\Models\Setting;
 
 class DataCollectionController extends Controller
 {
@@ -79,6 +81,49 @@ class DataCollectionController extends Controller
                 if (array_key_exists("local", $currentdata["@attributes"]))
                     $phonecall->local = $currentdata["@attributes"]["local"];
 
+                    if ($phonecall->dir == "from")
+                    {
+                        $savecaller = false;
+                        if (!Caller::where(['number' => $phonecall->e164])->first())
+                        {
+                            $caller = Caller::where(['number' => $phonecall->e164])->first();
+                            if ($phonecall->h323 != $caller->name && Setting::isAutomaticCallerUpdateEnabled() )
+                            {
+                                $caller->name = $phonecall->h323;
+                                $savecaller = true;
+                            }
+                        }
+                        else
+                        {
+                            if (Setting::isAutomaticCallerCreationEnabled())
+                            {
+                                $caller = new Caller();
+                                $caller->number =  $phonecall->e164;
+                                $caller->name =  $phonecall->h323;
+                                $savecaller = true;
+                            }
+                        }
+
+                        if ($savecaller)
+                        {
+                            if (!$caller->save()) {
+                                Storage::disk('local')->append('innovaphonerequestlog.txt', "caller could not be saved! object:");
+                                Storage::disk('local')->append('innovaphonerequestlog.txt', serialize($caller));
+                                Storage::disk('local')->append('innovaphonerequestlog.txt', "caller could not be saved! raw:");
+                                Storage::disk('local')->append('innovaphonerequestlog.txt', serialize($currentdata));
+                                error_log("caller could not be saved! object:", TRUE);
+                                error_log( print_r($caller), TRUE);
+                                error_log("caller could not be saved! raw:", TRUE);
+                                error_log( print_r($currentdata), TRUE);
+                            }
+                            else
+                            {
+                                $phonecall->caller_id = $caller->id;
+                            }
+                        }
+
+                    }
+
                 if (!$phonecall->save()) {
                     Storage::disk('local')->append('innovaphonerequestlog.txt', "phonecall could not be saved! object:");
                     Storage::disk('local')->append('innovaphonerequestlog.txt', serialize($phonecall));
@@ -89,6 +134,8 @@ class DataCollectionController extends Controller
                     error_log("phonecall could not be saved! raw:", TRUE);
                     error_log( print_r($currentdata), TRUE);
                 }
+
+
 
             }
             else

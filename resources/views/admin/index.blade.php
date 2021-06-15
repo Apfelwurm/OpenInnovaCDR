@@ -29,18 +29,18 @@
                     <table class="table table-striped table-hover table-responsive ">
                         <thead>
                             <tr>
-                                <th>Name</th>
                                 <th>Number</th>
+                                <th>Name</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($unassignedCallers as $caller)
                                 <tr>
                                     <td>
-                                        {{ $caller->name }}
+                                        {{ $caller->number }}
                                     </td>
                                     <td>
-                                        {{ $caller->number }}
+                                        {{ $caller->name }}
                                     </td>
                                 </tr>
                             @endforeach

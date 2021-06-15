@@ -23,10 +23,15 @@
             <li class="nav-item {{ Request::is('admin/callers') ? 'active' : '' }}">
 				<a class="nav-link" href="/admin/callers"><i class="fas fa-phone fa-fw"></i> Callers</a>
 			</li>
+            <li class="nav-item {{ Request::is('admin/numberfiltersettings') ? 'active' : '' }}">
+				<a class="nav-link" href="/admin/numberfiltersettings"><i class="fas fa-filter fa-fw"></i> Number Filter Settings</a>
+			</li>
+            <li class="nav-item {{ Request::is('admin/settings') ? 'active' : '' }}">
+				<a class="nav-link" href="/admin/settings"><i class="fas fa-cog fa-fw"></i> Settings</a>
+			</li>
 		</ul>
 	</div>
 	<!-- /.navbar-collapse -->
-
 	<ul class="nav ml-auto top-nav">
 		<li class="dropdown">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ $user->username }}</a>

@@ -31,8 +31,8 @@
                     <table class="table table-striped table-hover table-responsive">
                         <thead>
                             <tr>
-                                <th>Name</th>
                                 <th>Number</th>
+                                <th>Name</th>
                                 <th>Assign</th>
                             </tr>
                         </thead>
@@ -40,10 +40,10 @@
                             @foreach ($unassignedCallers as $caller)
                                 <tr>
                                     <td>
-                                        {{ $caller->name }}
+                                        {{ $caller->number }}
                                     </td>
                                     <td>
-                                        {{ $caller->number }}
+                                        {{ $caller->name }}
                                     </td>
 
                                     <td>
@@ -93,8 +93,8 @@
                     <table class="table table-striped table-hover table-responsive">
                         <thead>
                             <tr>
-                                <th>Name</th>
                                 <th>Number</th>
+                                <th>Name</th>
                                 <th>Unassign</th>
                             </tr>
                         </thead>
@@ -102,13 +102,13 @@
                             @foreach ($assignedCallers as $caller)
                                 <tr>
                                     <td>
-                                        {{ $caller->name }}
-                                    </td>
-                                    <td>
                                         {{ $caller->number }}
                                     </td>
                                     <td>
-                                        {{ Form::open(array('url'=>'/admin/callers/' . $caller->id . '/unassign' , 'onsubmit' => 'return ConfirmDelete()')) }}
+                                        {{ $caller->name }}
+                                    </td>
+                                    <td>
+                                        {{ Form::open(array('url'=>'/admin/callers/' . $caller->id . '/unassign' , 'onsubmit' => 'return ConfirmUnassign()')) }}
 
                                         <button type="submit" class="btn btn-danger btn-sm btn-block">Unassign</button>
                                         {{ Form::close() }}

@@ -15,7 +15,7 @@ class CreateCallersTable extends Migration
     {
         Schema::create('callers', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->string('number')->unique();
             $table->bigInteger('organisation_unit_id')->unsigned()->nullable()->default(null);
             $table->timestamps();

@@ -33,6 +33,14 @@
 				else
 					return false;
 			}
+            function ConfirmUnassign()
+			{
+				var x = confirm("Are you sure you want to remove the assignment?");
+				if (x)
+					return true;
+				else
+					return false;
+			}
 			function ConfirmSubmit()
 			{
 				var x = confirm("Are you sure you want to submit?");

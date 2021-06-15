@@ -16,6 +16,7 @@ class Setting extends Model
      */
     protected $fillable = [
         'setting',
+        'type',
         'value',
         'default',
     ];
@@ -41,6 +42,91 @@ class Setting extends Model
         }
         $setting->value = true;
         if (!$setting->save()) {
+            return false;
+        }
+        return true;
+    }
+
+
+
+    /**
+     * Is automatic_caller_creation Enabled
+     * @return Boolean
+     */
+    public static function isAutomaticCallerCreationEnabled()
+    {
+        return self::where('setting', 'automatic_caller_creation')->first()->value;
+    }
+
+    /**
+     * Enable automatic_caller_creation
+     * @return Boolean
+     */
+    public static function enableAutomaticCallerCreation()
+    {
+        if (!$AutomaticCallerCreationEnabled = self::where('setting', 'automatic_caller_creation')->first()) {
+            return false;
+        }
+        $AutomaticCallerCreationEnabled->value = true;
+        if (!$AutomaticCallerCreationEnabled->save()) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Disable automatic_caller_creation
+     * @return Boolean
+     */
+    public static function disableAutomaticCallerCreation()
+    {
+        if (!$AutomaticCallerCreationEnabled = self::where('setting', 'automatic_caller_creation')->first()) {
+            return false;
+        }
+        $AutomaticCallerCreationEnabled->value = false;
+        if (!$AutomaticCallerCreationEnabled->save()) {
+            return false;
+        }
+        return true;
+    }
+
+
+    /**
+     * Is automatic_caller_update Enabled
+     * @return Boolean
+     */
+    public static function isAutomaticCallerUpdateEnabled()
+    {
+        return self::where('setting', 'automatic_caller_update')->first()->value;
+    }
+
+    /**
+     * Enable automatic_caller_update
+     * @return Boolean
+     */
+    public static function enableAutomaticCallerUpdate()
+    {
+        if (!$AutomaticCallerUpdateEnabled = self::where('setting', 'automatic_caller_update')->first()) {
+            return false;
+        }
+        $AutomaticCallerUpdateEnabled->value = true;
+        if (!$AutomaticCallerUpdateEnabled->save()) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Disable automatic_caller_update
+     * @return Boolean
+     */
+    public static function disableAutomaticCallerUpdate()
+    {
+        if (!$AutomaticCallerUpdateEnabled = self::where('setting', 'automatic_caller_update')->first()) {
+            return false;
+        }
+        $AutomaticCallerUpdateEnabled->value = false;
+        if (!$AutomaticCallerUpdateEnabled->save()) {
             return false;
         }
         return true;

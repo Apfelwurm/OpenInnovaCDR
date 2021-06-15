@@ -25,8 +25,47 @@
 			</div>
 			<div class="card-body">
 				<div class="row">
+                    <div class="col-sm-12 col-lg-4">
+                    @if ($caller->organisationUnit != null)
+                    Caller is assigned to:
+                        <a href="/admin/organisationunits/{{ $caller->organisationUnit->id }}"> {{ $caller->organisationUnit->name }}</a>
+                        <div>
+                            {{ Form::open(array('url'=>'/admin/callers/' . $caller->id . '/unassign' , 'onsubmit' => 'return ConfirmUnassign()')) }}
 
+                                                <button type="submit" class="btn btn-danger btn-sm btn-block">Unassign</button>
+                                                {{ Form::close() }}
+                        </div>
+
+                    @else
+                    <table class="table table-striped table-hover table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Assign</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($organisationUnits as $organisationUnit)
+                                <tr>
+                                    <td>
+                                        {{ $organisationUnit->name }}
+                                    </td>
+                                    <td>
+                                        {{ Form::open(array('url'=>'/admin/callers/' . $caller->id . '/assign/' . $organisationUnit->id )) }}
+
+                                        <button type="submit" class="btn btn-primary btn-sm btn-block">Assign</button>
+                                        {{ Form::close() }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    {{ $organisationUnits->links() }}
+
+                    @endif
+                    </div>
 				</div>
+
 
 			</div>
 		</div>
