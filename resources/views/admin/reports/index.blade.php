@@ -155,7 +155,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{ $reportTemplates->links() }}
+                        {{ $reports->links() }}
                     </div>
                 </div>
 

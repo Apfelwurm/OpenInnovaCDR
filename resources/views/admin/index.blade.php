@@ -19,7 +19,7 @@
 	<div class="col-md-auto">
 		<div class="card mb-3">
 			<div class="card-header">
-				<i class="fa fa-users fa-fw"></i> Unassigned Callers
+				<i class="fa fa-phone fa-fw"></i> Unassigned Callers
 			</div>
 			<div class="card-body">
 				<div class="row">
@@ -31,6 +31,7 @@
                             <tr>
                                 <th>Number</th>
                                 <th>Name</th>
+                                <th>Edit</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -42,6 +43,11 @@
                                     <td>
                                         {{ $caller->name }}
                                     </td>
+                                    <td>
+                                        <a href="/admin/callers/{{ $caller->id }}">
+                                            <button class="btn btn-primary btn-sm btn-block">Edit</button>
+                                        </a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -52,6 +58,78 @@
 
 			</div>
 		</div>
+
+	</div>
+    <div class="col-md-auto">
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fas fa-newspaper fa-fw"></i> Last Reports
+            </div>
+            <div class="card-body">
+                <table class="table table-striped table-hover table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Status</th>
+                            <th>Cause</th>
+                            <th>Start date</th>
+                            <th>End date</th>
+                            <th>From template</th>
+                            <th>Timespan</th>
+                            <th>Show</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($reports as $report)
+                            <tr>
+
+                                <td>
+                                    {{ $report->Id }}
+                                </td>
+                                <td>
+                                    @if ($report->status == "queued")
+                                    <i class="far fa-clock fa-1x" style="color:black"></i> Queued
+                                    @endif
+                                    @if ($report->status == "running")
+                                    <i class="fas fa-play fa-1x" style="color:orange"></i> Running
+                                    @endif
+                                    @if ($report->status == "finished")
+                                    <i class="fas fa-check-circle-o fa-1x" style="color:green"></i> Finished
+                                    @endif
+                                    @if ($report->status == "error")
+                                    <i class="fas fa-times-circle-o fa-1x" style="color:red"></i> Error
+                                    @endif
+                                </td>
+                                <td>
+                                    {{ $report->cause }}
+                                </td>
+                                <td>
+                                    {{ $report->startdate }}
+                                </td>
+                                <td>
+                                    {{ $report->enddate }}
+                                </td>
+                                <td>
+                                    {{ $report->report_template_id }}
+                                </td>
+                                <td>
+                                    {{ $report->reportTemplate->timespan }}
+                                </td>
+
+
+                                <td>
+                                    <a href="/admin/reports/{{ $report->id }}">
+                                        <button class="btn btn-primary btn-sm btn-block">Show</button>
+                                    </a>
+                                </td>
+
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                {{ $reports->links() }}
+            </div>
+        </div>
 
 	</div>
 	</div>
