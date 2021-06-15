@@ -46,7 +46,12 @@
 									{{ $numberFilterSetting->priority }}
 								</td>
 								<td>
-									{{ $numberFilterSetting->direction }}
+                                    @if ($numberFilterSetting->direction == "sender")
+                                    <i class="fa fa-shipping-fast fa-1x" style="color:Blue"></i> Sender
+                                    @endif
+                                    @if ($numberFilterSetting->direction == "receiver")
+                                    <i class="fa fa-envelope-open-text fa-1x" style="color:orange"></i> Receiver
+                                    @endif
 								</td>
 								<td>
 									{{ $numberFilterSetting->filter }}
@@ -58,10 +63,18 @@
 									{{ $numberFilterSetting->cost_multiplier }}
 								</td>
 								<td>
-									{{ $numberFilterSetting->ignore_on_timereport }}
+                                    @if ($numberFilterSetting->ignore_on_timereport)
+                                    <i class="fa fa-times-circle-o fa-1x" style="color:red"></i> Yes
+                                    @else
+                                    <i class="fa fa-check-circle-o fa-1x" style="color:green"></i> No
+                                    @endif
 								</td>
 								<td>
-									{{ $numberFilterSetting->ignore_on_costreport }}
+                                    @if ($numberFilterSetting->ignore_on_costreport)
+                                    <i class="fa fa-times-circle-o fa-1x" style="color:red"></i> Yes
+                                    @else
+                                    <i class="fa fa-check-circle-o fa-1x" style="color:green"></i> No
+                                    @endif
 								</td>
 								<td>
 									<a href="/admin/numberfiltersettings/{{ $numberFilterSetting->id }}">
