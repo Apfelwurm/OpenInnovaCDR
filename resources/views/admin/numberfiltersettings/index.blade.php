@@ -27,13 +27,13 @@
 				<table class="table table-striped table-hover table-responsive">
 					<thead>
 						<tr>
-							<th>priority</th>
-							<th>direction</th>
-							<th>filter</th>
-							<th>cost</th>
-							<th>cost multiplier</th>
-							<th>ignore calls on timereport</th>
-							<th>ignore calls on costreport</th>
+							<th>Priority</th>
+							<th>Direction</th>
+							<th>Filter</th>
+							<th>Cost</th>
+							<th>Cost multiplier</th>
+							<th>Ignore calls on timereport</th>
+							<th>Ignore calls on costreport</th>
 							<th>Edit</th>
 							<th>Remove</th>
 						</tr>
