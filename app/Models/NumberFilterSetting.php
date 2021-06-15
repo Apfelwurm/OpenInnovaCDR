@@ -30,6 +30,20 @@ class NumberFilterSetting extends Model
      */
     public static function getNextPriority()
     {
+        $priorityemptyArray = [];
+
+        for ($i = 1; $i <= NumberFilterSetting::max('priority'); $i++) {
+            if (NumberFilterSetting::where('priority', $i)->count() === 0)
+            {
+                array_push($priorityemptyArray,$i);
+            }
+        }
+
+        if (count($priorityemptyArray) > 0)
+        {
+            return min($priorityemptyArray);
+        }
+
         if (NumberFilterSetting::max('priority') > 0)
         {
             return NumberFilterSetting::max('priority') + 1;
