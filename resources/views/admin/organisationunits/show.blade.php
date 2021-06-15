@@ -5,7 +5,7 @@
 @section ('content')
 <div class="row">
 	<div class="col-lg-12">
-		<h3 class="pb-2 mt-4 mb-4 border-bottom">{{ $organisationUnit->name }}</h3>
+		<h3 class="pb-2 mt-4 mb-4 border-bottom"><i class="fa fa-building"></i> {{ $organisationUnit->name }}</h3>
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item">
 				<a href="/admin/organisationunits/">Organisation Units                </a>
@@ -21,7 +21,7 @@
 	<div class="col-sm-12 col-lg-8">
 		<div class="card mb-3">
 			<div class="card-header">
-				<i class="fa fa-users fa-fw"></i> Assign Callers
+				<i class="fa fa-phone fa-fw"></i> Assign Callers
 			</div>
 			<div class="card-body">
 				<div class="row">
@@ -86,7 +86,7 @@
 	<div class="col-sm-12 col-lg-8">
 		<div class="card mb-3">
 			<div class="card-header">
-				<i class="fa fa-users fa-fw"></i> Assigned Callers
+				<i class="fa fa-phone fa-fw"></i> Assigned Callers
 			</div>
 			<div class="card-body">
 				<div class="row">

@@ -6,10 +6,10 @@
 
 <div class="row">
 	<div class="col-lg-12">
-		<h3 class="pb-2 mt-4 mb-4 border-bottom">Dashboard</h3>
+		<h3 class="pb-2 mt-4 mb-4 border-bottom"><i class="fa fa-dashboard"></i> Dashboard</h3>
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item active">
-				<i class="fa fa-dashboard"></i> Dashboard
+				Dashboard
 			</li>
 		</ol>
 	</div>

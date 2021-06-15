@@ -6,7 +6,7 @@
 
 <div class="row">
 	<div class="col-lg-12">
-		<h3 class="pb-2 mt-4 mb-4 border-bottom">Organisation Units</h3>
+		<h3 class="pb-2 mt-4 mb-4 border-bottom"><i class="fa fa-building"></i> Organisation Units</h3>
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item active">
 				Organisation Units
@@ -20,7 +20,7 @@
 
 		<div class="card mb-3">
 			<div class="card-header">
-				<i class="fa fa-users fa-fw"></i> Organisation Units
+				<i class="fa fa-building fa-fw"></i> Organisation Units
 			</div>
 			<div class="card-body">
 				<table class="table table-striped table-hover table-responsive">

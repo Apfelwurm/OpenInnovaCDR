@@ -5,7 +5,7 @@
 @section ('content')
 <div class="row">
 	<div class="col-lg-12">
-		<h3 class="pb-2 mt-4 mb-4 border-bottom">{{ $userShow->username }}</h3>
+		<h3 class="pb-2 mt-4 mb-4 border-bottom"><i class="fa fa-user"></i> {{ $userShow->username }}</h3>
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item">
 				<a href="/admin/users/">Users</a>
@@ -21,7 +21,7 @@
 	<div class="col-sm-12 col-lg-6">
 		<div class="card mb-3">
 			<div class="card-header">
-				<i class="fa fa-users fa-fw"></i> Options
+				<i class="fa fa-cog fa-fw"></i> Options
 			</div>
 			<div class="card-body">
 				<div class="row">

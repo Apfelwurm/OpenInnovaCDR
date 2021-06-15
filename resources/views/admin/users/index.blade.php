@@ -6,7 +6,7 @@
 
 <div class="row">
 	<div class="col-lg-12">
-		<h3 class="pb-2 mt-4 mb-4 border-bottom">Users</h3>
+		<h3 class="pb-2 mt-4 mb-4 border-bottom"><i class="fa fa-users"></i> Users</h3>
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item active">
 				Users

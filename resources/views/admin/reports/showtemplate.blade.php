@@ -5,7 +5,7 @@
 @section ('content')
 <div class="row">
 	<div class="col-lg-12">
-		<h3 class="pb-2 mt-4 mb-4 border-bottom">{{ $reportTemplate->id }}</h3>
+		<h3 class="pb-2 mt-4 mb-4 border-bottom"><i class="fas fa-newspaper"></i> {{ $reportTemplate->id }}</h3>
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item">
 				<a href="/admin/reports/templates/">Report Template</a>
@@ -21,7 +21,7 @@
     <div class="col-sm-12 col-lg-4">
 		<div class="card mb-3">
 			<div class="card-header">
-				<i class="fa fa-users fa-fw"></i> Edit Report Template
+				<i class="fa fa-newspaper fa-fw"></i> Edit Report Template
 			</div>
 			<div class="card-body">
 				{{ Form::open(array('url'=>'/admin/reports/templates/'.$reportTemplate->id)) }}

@@ -6,7 +6,7 @@
 
 <div class="row">
 	<div class="col-lg-12">
-		<h3 class="pb-2 mt-4 mb-4 border-bottom">Callers</h3>
+		<h3 class="pb-2 mt-4 mb-4 border-bottom"><i class="fa fa-phone"></i> Callers</h3>
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item active">
 				Callers
@@ -20,7 +20,7 @@
 
 		<div class="card mb-3">
 			<div class="card-header">
-				<i class="fa fa-users fa-fw"></i> Callers
+				<i class="fa fa-phone fa-fw"></i> Callers
 			</div>
 			<div class="card-body">
 				<table class="table table-striped table-hover table-responsive">
