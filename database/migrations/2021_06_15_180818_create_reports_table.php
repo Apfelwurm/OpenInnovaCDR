@@ -16,8 +16,8 @@ class CreateReportsTable extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
             $table->enum('cause', array('scheduled','manual'))->default('manual');
-            $table->dateTime('startdate');
-            $table->dateTime('enddate');
+            $table->dateTime('startdate')->nullable();
+            $table->dateTime('enddate')->nullable();
             $table->bigInteger('report_template_id')->unsigned()->nullable()->default(null);
             $table->enum('status', array('queued','running','finished','error'))->default('queued');
             $table->timestamps();

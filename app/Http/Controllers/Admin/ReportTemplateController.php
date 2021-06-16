@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Report;
 use App\Models\ReportTemplate;
+use Carbon\Carbon;
 
 class ReportTemplateController extends Controller
 {
@@ -65,12 +66,13 @@ class ReportTemplateController extends Controller
         $reportTemplate->startdate         	= date("Y-m-d H:i:s", strtotime($request->start_date . $request->start_time));
 
 
+
         if (!$reportTemplate->save()) {
             Session::flash('alert-danger', 'Cannot create report template!');
             return Redirect::back();
         }
 
-        Session::flash('alert-info', 'number report template created!');
+        Session::flash('alert-info', 'report template created!');
         return Redirect::to('/admin/reports/templates/'.$reportTemplate->id);
     }
 
@@ -111,6 +113,10 @@ class ReportTemplateController extends Controller
         $reportTemplate->schedule         	= $request->schedule;
         $reportTemplate->timespan         	= $request->timespan;
         $reportTemplate->startdate         	= date("Y-m-d H:i:s", strtotime($request->start_date . $request->start_time));
+
+
+
+
 
         if (!$reportTemplate->save()) {
             Session::flash('alert-danger', 'Cannot update report template!');

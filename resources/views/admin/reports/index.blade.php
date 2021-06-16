@@ -104,7 +104,6 @@
                                     <th>Start date</th>
                                     <th>End date</th>
                                     <th>From template</th>
-                                    <th>Timespan</th>
                                     <th>Show</th>
                                 </tr>
                             </thead>
@@ -141,9 +140,7 @@
                                         <td>
                                             {{ $report->report_template_id }}
                                         </td>
-                                        <td>
-                                            {{ $report->reportTemplate->timespan }}
-                                        </td>
+
 
 
                                         <td>

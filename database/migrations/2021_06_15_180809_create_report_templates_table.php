@@ -19,7 +19,7 @@ class CreateReportTemplatesTable extends Migration
             $table->enum('output_format', array('PDF'))->default('PDF');
             $table->enum('schedule', array('monthly', 'weekly', 'daily','once','disabled'))->default('disabled');
             $table->enum('timespan', array('one month back from now','last month', 'current month', 'one week back from now','last week', 'current week','one day back from now', 'yesterday', 'today'))->default('last month');
-            $table->date('startdate');
+            $table->dateTime('startdate');
             $table->timestamps();
         });
     }
