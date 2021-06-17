@@ -76,7 +76,6 @@
                             <th>Start date</th>
                             <th>End date</th>
                             <th>From template</th>
-                            <th>Timespan</th>
                             <th>Show</th>
                         </tr>
                     </thead>
@@ -111,12 +110,12 @@
                                     {{ $report->enddate }}
                                 </td>
                                 <td>
+                                    @if ($report->report_template_id)
                                     {{ $report->report_template_id }}
+                                    @else
+                                    Deleted
+                                    @endif
                                 </td>
-                                <td>
-                                    {{ $report->reportTemplate->timespan }}
-                                </td>
-
 
                                 <td>
                                     <a href="/admin/reports/{{ $report->id }}">

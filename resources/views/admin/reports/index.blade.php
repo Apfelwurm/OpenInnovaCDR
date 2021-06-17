@@ -138,7 +138,12 @@
                                             {{ $report->enddate }}
                                         </td>
                                         <td>
+                                            @if ($report->report_template_id)
                                             {{ $report->report_template_id }}
+                                            @else
+                                            Deleted
+                                            @endif
+
                                         </td>
 
 
