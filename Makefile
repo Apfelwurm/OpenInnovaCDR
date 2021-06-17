@@ -33,17 +33,13 @@ replace-devproxy:
 
 # Permissions - docker Dev
 permissions:
-	chown -R 1337:1337 storage
-	find src -type f -exec chmod 664 {} \;
-	find src -type d -exec chmod 775 {} \;
+	chown -R 1337:1337 storage bootstrap/cache
 	chgrp -R 1337 storage bootstrap/cache
 	chmod -R ug+rwx storage bootstrap/cache
 
 # Permissions custom - usage make permissions-custom user=username group=groupname
 permissions-custom:
-	chown -R $(user):$(group) storage
-	find src -type f -exec chmod 664 {} \;
-	find src -type d -exec chmod 775 {} \;
+	chown -R $(user):$(group) storage bootstrap/cache
 	chgrp -R $(group) storage bootstrap/cache
 	chmod -R ug+rwx storage bootstrap/cache
 
