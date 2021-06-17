@@ -82,13 +82,13 @@ class DataCollectionController extends Controller
                 if (array_key_exists("local", $currentdata["@attributes"]))
                     $phonecall->local = $currentdata["@attributes"]["local"];
 
-                    if ($phonecall->dir == "from" && $phonecall->e164 != null)
+                    if ($phonecall->dir == "from" && $phonecall->e164 != null && $phonecall->e164 != "")
                     {
                         $savecaller = false;
                         if (Caller::where(['number' => $phonecall->e164])->first() !=  null)
                         {
                             $caller = Caller::where(['number' => $phonecall->e164])->first();
-                            if ($phonecall->h323 != $caller->name && Setting::isAutomaticCallerUpdateEnabled() )
+                            if ($phonecall->h323 != null && $phonecall->h323 != "" && $phonecall->h323 != $caller->name && Setting::isAutomaticCallerUpdateEnabled() )
                             {
                                 $caller->name = $phonecall->h323;
                                 $savecaller = true;
