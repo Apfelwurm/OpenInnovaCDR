@@ -171,12 +171,7 @@ class GenerateReport implements ShouldQueue
 
 
                         }
-                        else
-                        {
-                            $this->report->status = "error";
-                            $this->report->save();
-                            $this->fail("no filters for at least one call found");
-                        }
+
 
                         if (!$filterout)
                         {
@@ -223,7 +218,7 @@ class GenerateReport implements ShouldQueue
                             if ($reportNumberFilterSettings->count() > 0)
                             {
 
-
+                                $match= false;
                                 foreach($reportNumberFilterSettings->sortBy('priority') as $reportNumberFilterSetting)
                                 {
 
@@ -247,11 +242,19 @@ class GenerateReport implements ShouldQueue
                                                 $amount = $amount + ($reportOrganisationUnitCall->time * $reportNumberFilterSetting->cost);
                                                 break;
                                         }
-
+                                        $match=true;
                                         break;
                                     }
 
 
+                                }
+
+
+                                if(!$match)
+                                {
+                                    $this->report->status = "error";
+                                    $this->report->save();
+                                    $this->fail("no filters for at least one call found in cost report");
                                 }
 
 
