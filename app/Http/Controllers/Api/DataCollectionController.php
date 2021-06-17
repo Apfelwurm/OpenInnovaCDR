@@ -84,7 +84,7 @@ class DataCollectionController extends Controller
                     if ($phonecall->dir == "from")
                     {
                         $savecaller = false;
-                        if (!Caller::where(['number' => $phonecall->e164])->first())
+                        if (Caller::where(['number' => $phonecall->e164])->first() !=  null)
                         {
                             $caller = Caller::where(['number' => $phonecall->e164])->first();
                             if ($phonecall->h323 != $caller->name && Setting::isAutomaticCallerUpdateEnabled() )
