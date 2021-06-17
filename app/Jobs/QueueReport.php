@@ -68,6 +68,53 @@ class QueueReport implements ShouldQueue
                         $report->status = 'queued';
                         $report->report_template_id = $reportTemplate->id;
 
+
+                        $currentdate = Carbon::create($reportTemplate->startdate);
+
+                        switch ($reportTemplate->timespan)
+                        {
+                            case 'one month back from now':
+                                 $report->startdate = (new Carbon($currentdate))->subMonth();
+                                 $report->enddate =  $currentdate;
+                                break;
+                            case 'last month':
+                                 $report->startdate = (new Carbon('first day of last month'))->startOfMonth();
+                                 $report->enddate =   (new Carbon('last day of last month'))->endOfMonth();
+                                break;
+                            case 'current month':
+                                 $report->startdate = (new Carbon('first day of this month'))->startOfMonth();
+                                 $report->enddate =   (new Carbon('last day of this month'))->endOfMonth();
+                                break;
+                            case 'one week back from now':
+                                 $report->startdate = (new Carbon($currentdate))->subWeek();
+                                 $report->enddate =  $currentdate;
+                                break;
+                            case 'last week':
+                                 $report->startdate = Carbon::now()->subWeek()->startOfWeek();
+                                 $report->enddate =   Carbon::now()->subWeek()->endOfWeek();
+                                break;
+                            case 'current week':
+                                 $report->startdate = Carbon::now()->startOfWeek();
+                                 $report->enddate =   Carbon::now()->endOfWeek();
+                                break;
+                            case 'one day back from now':
+                                 $report->startdate = (new Carbon($currentdate))->subDay();
+                                 $report->enddate =  $currentdate;
+                                break;
+                            case 'yesterday':
+                                 $report->startdate = Carbon::now()->subDay()->startOfDay();
+                                 $report->enddate =   Carbon::now()->subDay()->endOfDay();
+                                break;
+                            case 'today':
+                                 $report->startdate = Carbon::now()->startOfDay();
+                                 $report->enddate =   Carbon::now()->endOfDay();
+                                break;
+                            default:
+                                 $report->status = "error";
+                                 $report->save();
+                                return;
+                        }
+
                         $report->save();
 
                         GenerateReport::dispatch($report);

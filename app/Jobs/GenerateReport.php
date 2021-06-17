@@ -10,12 +10,15 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\Middleware\WithoutOverlapping;
 use App\Models\Caller;
+use App\Models\PhoneCall;
+use App\Models\PhoneCallEvent;
 use App\Models\Report;
 use App\Models\ReportTemplate;
 use App\Jobs\Middleware\ReportNotRunning;
 use App\Models\NumberFilterSetting;
 use App\Models\OrganisationUnit;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class GenerateReport implements ShouldQueue
 {
@@ -79,51 +82,25 @@ class GenerateReport implements ShouldQueue
         $organisationUnits = OrganisationUnit::all();
         $numberFilterSettings = NumberFilterSetting::all();
 
-        $currentdate = Carbon::create($this->report->reportTemplate->startdate);
+        $gatheredcalls = [];
 
-        switch ($this->report->reportTemplate->timespan)
+        foreach ($callers as $caller)
         {
-            case 'one month back from now':
-                $this->report->startdate = (new Carbon($currentdate))->subMonth();
-                $this->report->enddate =  $currentdate;
-                break;
-            case 'last month':
-                $this->report->startdate = (new Carbon('first day of last month'))->startOfMonth();
-                $this->report->enddate =   (new Carbon('last day of last month'))->endOfMonth();
-                break;
-            case 'current month':
-                $this->report->startdate = (new Carbon('first day of this month'))->startOfMonth();
-                $this->report->enddate =   (new Carbon('last day of this month'))->endOfMonth();
-                break;
-            case 'one week back from now':
-                $this->report->startdate = (new Carbon($currentdate))->subWeek();
-                $this->report->enddate =  $currentdate;
-                break;
-            case 'last week':
-                $this->report->startdate = Carbon::now()->subWeek()->startOfWeek();
-                $this->report->enddate =   Carbon::now()->subWeek()->endOfWeek();
-                break;
-            case 'current week':
-                $this->report->startdate = Carbon::now()->startOfWeek();
-                $this->report->enddate =   Carbon::now()->endOfWeek();
-                break;
-            case 'one day back from now':
-                $this->report->startdate = (new Carbon($currentdate))->subDay();
-                $this->report->enddate =  $currentdate;
-                break;
-            case 'yesterday':
-                $this->report->startdate = Carbon::now()->subDay()->startOfDay();
-                $this->report->enddate =   Carbon::now()->subDay()->endOfDay();
-                break;
-            case 'today':
-                $this->report->startdate = Carbon::now()->startOfDay();
-                $this->report->enddate =   Carbon::now()->endOfDay();
-                break;
-            default:
-                $this->report->status = "error";
-                $this->report->save();
-                return;
+            $calls = PhoneCall::where([
+                ['e164', '=', $caller->number],
+                ['dir',  '=', 'from'],
+                ['local', '>', Carbon::create($this->report->startdate)->timestamp],
+                ['local', '<', Carbon::create($this->report->enddate)->timestamp],
+            ]);
+
+
+
+            Storage::disk('local')->append('innovaphonerequestlog.txt', "calls:");
+            Storage::disk('local')->append('innovaphonerequestlog.txt', json_encode($calls));
+
         }
+
+
         $this->report->status = "finished";
         $this->report->save();
 

@@ -116,10 +116,6 @@ class DataCollectionController extends Controller
                                 error_log("caller could not be saved! raw:", TRUE);
                                 error_log( print_r($currentdata), TRUE);
                             }
-                            else
-                            {
-                                $phonecall->caller_id = $caller->id;
-                            }
                         }
 
                     }
