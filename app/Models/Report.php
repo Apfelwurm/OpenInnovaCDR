@@ -21,4 +21,9 @@ class Report extends Model
         return $this->belongsTo('App\Models\ReportTemplate');
     }
 
+    public function reportNumberFilterSettings()
+    {
+        return $this->HasManyThrough('App\Models\ReportNumberFilterSetting' ,'App\Models\ReportPhoneCall');
+    }
+
 }

@@ -27,4 +27,46 @@ class ReportNumberFilterSetting extends Model
     {
         return $this->hasOneThrough('App\Models\Report','App\Models\ReportPhoneCall');
     }
+
+    public function matchesFilter(int $senderNumber, int $receiverNumber)
+    {
+        switch($this->direction)
+        {
+            case 'sender':
+                if (preg_match($this->filter, $senderNumber))
+                {
+                    return true;
+                }
+                break;
+            case 'receiver':
+                if (preg_match($this->filter, $receiverNumber))
+                {
+                    return true;
+                }
+                break;
+        }
+        return false;
+    }
+
+    public function ignoreOnReport(string $type)
+    {
+        switch($type)
+        {
+            case 'cost':
+                if ($this->ignore_on_costreport)
+                {
+                    return true;
+                }
+                break;
+            case 'time':
+                if ($this->ignore_on_timereport)
+                {
+                    return true;
+                }
+                break;
+        }
+        return false;
+    }
+
+
 }

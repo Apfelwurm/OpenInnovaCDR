@@ -15,4 +15,9 @@ class ReportOrganisationUnit extends Model
         return $this->hasMany('App\Models\ReportCaller');
     }
 
+    public function reportPhoneCalls()
+    {
+        return $this->hasManyThrough('App\Models\ReportPhoneCall','App\Models\ReportCaller');
+    }
+
 }
