@@ -11,12 +11,12 @@ composer-install:
 
 # link dev Proxy Compose file
 use-dev-proxyfile:
-	[ -f docker-compose.yml ] && rm docker-compose.yml
+	[ -f docker-compose.yml ] && rm docker-compose.yml ; true
 	ln -s docker-compose_proxy.yml docker-compose.yml
 
 # link dev no Proxy Compose file
 use-dev-noproxyfile:
-	[ -f docker-compose.yml ] && rm docker-compose.yml
+	[ -f docker-compose.yml ] && rm docker-compose.yml ; true
 	ln -s docker-compose_noproxy.yml docker-compose.yml
 
 # replace proxy in dev compose file -  usage make replace-devproxy proxy=http://proxy.local:3128
