@@ -46,6 +46,7 @@ class DataCollectionController extends Controller
 
             if(array_key_exists("@attributes", $currentdata))
             {
+
                 $phonecall = new PhoneCall();
 
                 if (array_key_exists("guid", $currentdata["@attributes"]))
@@ -81,7 +82,7 @@ class DataCollectionController extends Controller
                 if (array_key_exists("local", $currentdata["@attributes"]))
                     $phonecall->local = $currentdata["@attributes"]["local"];
 
-                    if ($phonecall->dir == "from")
+                    if ($phonecall->dir == "from" && $phonecall->e164 != null)
                     {
                         $savecaller = false;
                         if (Caller::where(['number' => $phonecall->e164])->first() !=  null)
