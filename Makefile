@@ -1,3 +1,8 @@
+#pull up dev environment from scratch
+dev: env-file composer-install npm-install-dev use-dev-noproxyfile sail-up db-regenerate
+#pull up dev environment from scratch behind proxy  -  usage make dev-proxy proxy=http://proxy.local:3128
+#dev-proxy: env-file composer-install npm-install-dev-proxy use-dev-proxyfile replace-devproxy sail-up db-regenerate
+
 # Make .env
 env-file:
 	cp .env.example src/.env
@@ -25,6 +30,22 @@ replace-devproxy:
 	sed -i 's|http_proxy: .*$$|http_proxy: $(proxy)|g' docker-compose_proxy.yml
 	sed -i 's|https_proxy .*$$|https_proxy $(proxy)|g' docker_proxy/Dockerfile
 	sed -i 's|http_proxy .*$$|http_proxy $(proxy)|g' docker_proxy/Dockerfile
+
+# Permissions - docker Dev
+permissions:
+	chown -R 1337:1337 storage
+	find src -type f -exec chmod 664 {} \;
+	find src -type d -exec chmod 775 {} \;
+	chgrp -R 1337 storage bootstrap/cache
+	chmod -R ug+rwx storage bootstrap/cache
+
+# Permissions custom - usage make permissions-custom user=username group=groupname
+permissions-custom:
+	chown -R $(user):$(group) storage
+	find src -type f -exec chmod 664 {} \;
+	find src -type d -exec chmod 775 {} \;
+	chgrp -R $(group) storage bootstrap/cache
+	chmod -R ug+rwx storage bootstrap/cache
 
 #sail shell
 sail-shell:
