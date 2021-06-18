@@ -31,9 +31,9 @@ class CallerPrefix extends Model
         $matchedprefixes = collect();
         foreach ($prefixes as $prefix)
         {
-            if (str_starts_with($number, $prefix->prefix))
+            if (str_starts_with($number, strval($prefix->prefix)))
             {
-                return $prefix->prefix;
+                return strval($prefix->prefix);
             }
         }
 
