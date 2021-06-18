@@ -188,7 +188,7 @@ class DataCollectionController extends Controller
 
             $firstcallevent = ($phoneCallEvents)->whereIn('msg',['setup-from'])->first();
             Storage::disk('local')->append('innovaphonerequestlog.txt', "firstcallevent collect:");
-            Storage::disk('local')->append('innovaphonerequestlog.txt', serialize($firstcallevent));
+            Storage::disk('local')->append('innovaphonerequestlog.txt', json_encode($firstcallevent));
 
             Storage::disk('local')->append('innovaphonerequestlog.txt', "phonecall decition");
             Storage::disk('local')->append('innovaphonerequestlog.txt', "pcall:");
