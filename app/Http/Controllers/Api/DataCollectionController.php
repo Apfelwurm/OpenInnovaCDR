@@ -245,12 +245,12 @@ class DataCollectionController extends Controller
                                     Storage::disk('local')->append('innovaphonerequestlog.txt', "prefixed caller check");
                                     Storage::disk('local')->append('innovaphonerequestlog.txt', json_encode($phonecall->e164));
                                     Storage::disk('local')->append('innovaphonerequestlog.txt', "prefixed caller check");
-                                    Storage::disk('local')->append('innovaphonerequestlog.txt', json_encode((string)CallerPrefix::firstMatchedPrefix($phonecall->e164)));
+                                    Storage::disk('local')->append('innovaphonerequestlog.txt', json_encode(CallerPrefix::firstMatchedPrefix($phonecall->e164)));
                                     Storage::disk('local')->append('innovaphonerequestlog.txt', "prefixed caller check");
-                                    Storage::disk('local')->append('innovaphonerequestlog.txt', json_encode(ltrim($phonecall->e164 , (string)CallerPrefix::firstMatchedPrefix($phonecall->e164))));
+                                    Storage::disk('local')->append('innovaphonerequestlog.txt', json_encode(ltrim($phonecall->e164 , CallerPrefix::firstMatchedPrefix($phonecall->e164))));
 
 
-                                    $tempnumber = ltrim($phonecall->e164 , (string)CallerPrefix::firstMatchedPrefix($phonecall->e164));
+                                    $tempnumber = ltrim($phonecall->e164 , CallerPrefix::firstMatchedPrefix($phonecall->e164));
                                     if (Caller::where(['number' => $tempnumber])->first() ==  null)
                                     {
                                         Storage::disk('local')->append('innovaphonerequestlog.txt', "prefixed caller not found, create:");
