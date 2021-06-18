@@ -195,7 +195,7 @@ class DataCollectionController extends Controller
             Storage::disk('local')->append('innovaphonerequestlog.txt', json_encode($phonecall));
 
 
-            if ($phonecall->dir == "from" && $phonecall->e164 != null && $phonecall->e164 != "" && (($firstcallevent->type != "ext" && !(str_starts_with($phonecall->e164, "00")) ) || ($firstcallevent->type == "ext" && str_starts_with($phonecall->e164, "00") ) ))
+            if ($phonecall->dir == "from" && $phonecall->e164 != null && $phonecall->e164 != "" && (($firstcallevent->type != "ext" && !(str_starts_with($firstcallevent->e164, "00")) ) || ($firstcallevent->type == "ext" && str_starts_with($firstcallevent->e164, "00") ) ))
                     {
                         Storage::disk('local')->append('innovaphonerequestlog.txt', "phonecall selected");
                         Storage::disk('local')->append('innovaphonerequestlog.txt', "number:");
