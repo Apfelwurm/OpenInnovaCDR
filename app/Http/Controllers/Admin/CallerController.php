@@ -16,14 +16,14 @@ class CallerController extends Controller
     {
          return view('admin.callers.index')
         ->withUser(Auth::user())
-        ->withCallers(Caller::paginate(20));
+        ->withCallers(Caller::paginate(60));
     }
 
     public function show(Caller $caller)
     {
         return view('admin.callers.show')
         ->withUser(Auth::user())
-        ->withOrganisationUnits(OrganisationUnit::paginate(20))
+        ->withOrganisationUnits(OrganisationUnit::paginate(60))
         ->withCaller($caller);
     }
 

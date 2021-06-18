@@ -17,12 +17,12 @@ class Caller extends Model
 
     public static function getUnassignedPaginated()
     {
-        return self::where('organisation_unit_id', null)->paginate(20);
+        return self::where('organisation_unit_id', null)->paginate(60);
     }
 
     public static function getAssignedPaginated(OrganisationUnit $organisationUnit)
     {
-        return self::where('organisation_unit_id', $organisationUnit->id)->paginate(20);
+        return self::where('organisation_unit_id', $organisationUnit->id)->paginate(60);
     }
 
 
