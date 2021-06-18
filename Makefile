@@ -71,6 +71,10 @@ sail-logs:
 sail-logs-follow:
 	$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))/vendor/laravel/sail/bin/sail logs -f
 
+#sail command - usage make sail-command command="artisan migrate"
+sail-command:
+	$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))/vendor/laravel/sail/bin/sail $(command)
+
 
 # Install JS Dependencies via NPM
 npm-install:
