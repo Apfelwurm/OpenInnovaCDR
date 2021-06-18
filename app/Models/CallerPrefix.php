@@ -27,13 +27,12 @@ class CallerPrefix extends Model
 
     public static function firstMatchedPrefix(string $number)
     {
-        $prefixes = self::orderByDesc("prefix");
-        $matchedprefixes = collect();
+        $prefixes = self::orderByDesc("prefix")->get();
         foreach ($prefixes as $prefix)
         {
-            if (str_starts_with($number, strval($prefix->prefix)))
+            if (str_starts_with($number, $prefix->prefix))
             {
-                return strval($prefix->prefix);
+                return $prefix->prefix;
             }
         }
 
