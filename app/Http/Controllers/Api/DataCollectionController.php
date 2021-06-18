@@ -11,7 +11,7 @@ use App\Models\Caller;
 use Throwable;
 use Illuminate\Support\Facades\Log;
 use App\Models\Setting;
-
+use App\Models\CallerPrefix;
 class DataCollectionController extends Controller
 {
     public function innovaphone(Request $request)
@@ -207,9 +207,25 @@ class DataCollectionController extends Controller
                             if (Setting::isAutomaticCallerCreationEnabled())
                             {
                                 $caller = new Caller();
-                                $caller->number =  $phonecall->e164;
                                 $caller->name =  $phonecall->h323;
-                                $savecaller = true;
+
+                                if (!CallerPrefix::matchesAnyPrefix($phonecall->e164))
+                                {
+                                    $caller->number =  $phonecall->e164;
+                                    $savecaller = true;
+                                }
+                                else
+                                {
+                                    $tempnumber = ltrim($phonecall->e164 , (string)CallerPrefix::firstMatchedPrefix($phonecall->e164));
+                                    if (Caller::where(['number' => $tempnumber])->first() ==  null)
+                                    {
+                                        $caller->number =  $tempnumber;
+                                        $savecaller = true;
+                                    }
+
+
+                                }
+
                             }
                         }
 

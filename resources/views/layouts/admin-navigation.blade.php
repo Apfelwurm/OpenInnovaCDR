@@ -23,6 +23,9 @@
             <li class="nav-item {{ Request::is('admin/callers') ? 'active' : '' }}">
 				<a class="nav-link" href="/admin/callers"><i class="fas fa-phone fa-fw"></i> Callers</a>
 			</li>
+            <li class="nav-item {{ Request::is('admin/callerprefixes') ? 'active' : '' }}">
+				<a class="nav-link" href="/admin/callerprefixes"><i class="fas fa-prescription fa-fw"></i> Caller Prefixes</a>
+			</li>
             <li class="nav-item {{ Request::is('admin/numberfiltersettings') ? 'active' : '' }}">
 				<a class="nav-link" href="/admin/numberfiltersettings"><i class="fas fa-filter fa-fw"></i> Number Filter Settings</a>
 			</li>

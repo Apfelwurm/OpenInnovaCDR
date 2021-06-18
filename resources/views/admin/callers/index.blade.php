@@ -30,6 +30,7 @@
 							<th>Number</th>
 							<th>Name</th>
 							<th>OU</th>
+							<th>prefixed numbers</th>
 							<th>Edit</th>
 							<th>Delete</th>
 						</tr>
@@ -47,6 +48,13 @@
                                     @if ($caller->organisationUnit != null)
 									    {{ $caller->organisationUnit->name }}
                                     @endif
+								</td>
+                                <td>
+                                    @foreach (App\Models\CallerPrefix::getPrefixedNumber($caller->number) as $prefixedNumber )
+                                        {{ $prefixedNumber }}<br>
+                                    @endforeach
+
+
 								</td>
 								<td>
 									<a href="/admin/callers/{{ $caller->id }}">

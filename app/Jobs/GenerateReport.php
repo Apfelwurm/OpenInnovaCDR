@@ -125,6 +125,20 @@ class GenerateReport implements ShouldQueue
                 ['local', '<', Carbon::create($this->report->enddate)->timestamp],
             ]);
 
+            foreach (App\Models\CallerPrefix::getPrefixedNumber($caller->number) as $prefixedNumber )
+            {
+                $tempcalls = PhoneCall::where([
+                    ['e164', '=', $prefixedNumber],
+                    ['dir',  '=', 'from'],
+                    ['local', '>', Carbon::create($this->report->startdate)->timestamp],
+                    ['local', '<', Carbon::create($this->report->enddate)->timestamp],
+                ]);
+                $calls = $calls->merge($tempcalls);
+            }
+
+
+
+
             Storage::disk('local')->append('innovaphonerequestlog.txt', "calls:");
             Storage::disk('local')->append('innovaphonerequestlog.txt', json_encode($calls));
 

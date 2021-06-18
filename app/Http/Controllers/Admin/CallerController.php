@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Caller;
 use App\Http\Controllers\Controller;
+use App\Models\CallerPrefix;
 use App\Models\OrganisationUnit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,6 +45,12 @@ class CallerController extends Controller
 
         ];
         $this->validate($request, $rules, $messages);
+
+        if (CallerPrefix::matchesAnyPrefix($request->number))
+        {
+            Session::flash('alert-danger', 'Cannot create Caller because number starts with a caller prefix! Check your caller prefixes and mabe create the correct caller without the prefix');
+            return Redirect::back();
+        }
 
         // Create User
         $caller 						= New Caller;

@@ -79,6 +79,18 @@ Route::group(['middleware' => ['App\Http\Middleware\Installed']], function () {
             Route::delete('/admin/organisationunits/{organisationUnit}/delete', 'App\Http\Controllers\Admin\OrganisationUnitController@remove');
         });
         /**
+        * caller prefixes
+         */
+        Route::get('/admin/callerprefixes', 'App\Http\Controllers\Admin\CallerPrefixController@index');
+        Route::group(['middleware' => ['App\Http\Middleware\ReportNotRunning']], function () {
+            Route::post('/admin/callerprefixes/add', 'App\Http\Controllers\Admin\CallerPrefixController@store');
+            Route::post('/admin/callerprefixes/{callerPrefix}', 'App\Http\Controllers\Admin\CallerPrefixController@update');
+        });
+        Route::get('/admin/callerprefixes/{callerPrefix}', 'App\Http\Controllers\Admin\CallerPrefixController@show');
+        Route::group(['middleware' => ['App\Http\Middleware\ReportNotRunning']], function () {
+            Route::delete('/admin/callerprefixes/{callerPrefix}/delete', 'App\Http\Controllers\Admin\CallerPrefixController@remove');
+        });
+        /**
         * Callers
         */
         Route::get('/admin/callers', 'App\Http\Controllers\Admin\CallerController@index');
