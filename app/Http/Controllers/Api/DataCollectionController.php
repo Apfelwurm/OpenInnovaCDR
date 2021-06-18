@@ -192,12 +192,23 @@ class DataCollectionController extends Controller
 
             if ($phonecall->dir == "from" && $phonecall->e164 != null && $phonecall->e164 != "" && $firstcallevent->type != "ext")
                     {
+                        Storage::disk('local')->append('innovaphonerequestlog.txt', "phonecall selected");
+                        Storage::disk('local')->append('innovaphonerequestlog.txt', "number:");
+                        Storage::disk('local')->append('innovaphonerequestlog.txt', json_encode($phonecall->e164));
+
                         $savecaller = false;
                         if (Caller::where(['number' => $phonecall->e164])->first() !=  null)
                         {
+                            Storage::disk('local')->append('innovaphonerequestlog.txt', "caller found");
+                            Storage::disk('local')->append('innovaphonerequestlog.txt', "number:");
+                            Storage::disk('local')->append('innovaphonerequestlog.txt', json_encode($phonecall->e164));
+
                             $caller = Caller::where(['number' => $phonecall->e164])->first();
                             if ($phonecall->h323 != null && $phonecall->h323 != "" && $phonecall->h323 != $caller->name && Setting::isAutomaticCallerUpdateEnabled() )
                             {
+                                Storage::disk('local')->append('innovaphonerequestlog.txt', "update caller");
+                                Storage::disk('local')->append('innovaphonerequestlog.txt', "name:");
+                                Storage::disk('local')->append('innovaphonerequestlog.txt', json_encode($phonecall->h323));
                                 $caller->name = $phonecall->h323;
                                 $savecaller = true;
                             }
