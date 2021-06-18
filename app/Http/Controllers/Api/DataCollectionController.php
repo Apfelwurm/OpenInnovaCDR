@@ -216,9 +216,19 @@ class DataCollectionController extends Controller
                                 }
                                 else
                                 {
+                                    Storage::disk('local')->append('innovaphonerequestlog.txt', "prefixed caller check");
+                                    Storage::disk('local')->append('innovaphonerequestlog.txt', json_encode($phonecall->e164));
+                                    Storage::disk('local')->append('innovaphonerequestlog.txt', "prefixed caller check");
+                                    Storage::disk('local')->append('innovaphonerequestlog.txt', json_encode((string)CallerPrefix::firstMatchedPrefix($phonecall->e164)));
+                                    Storage::disk('local')->append('innovaphonerequestlog.txt', "prefixed caller check");
+                                    Storage::disk('local')->append('innovaphonerequestlog.txt', json_encode(ltrim($phonecall->e164 , (string)CallerPrefix::firstMatchedPrefix($phonecall->e164))));
+
+
                                     $tempnumber = ltrim($phonecall->e164 , (string)CallerPrefix::firstMatchedPrefix($phonecall->e164));
                                     if (Caller::where(['number' => $tempnumber])->first() ==  null)
                                     {
+                                        Storage::disk('local')->append('innovaphonerequestlog.txt', "prefixed caller not found, create:");
+                                        Storage::disk('local')->append('innovaphonerequestlog.txt', json_encode($tempnumber));
                                         $caller->number =  $tempnumber;
                                         $savecaller = true;
                                     }
