@@ -206,11 +206,21 @@ class DataCollectionController extends Controller
                         {
                             if (Setting::isAutomaticCallerCreationEnabled())
                             {
+                                Storage::disk('local')->append('innovaphonerequestlog.txt', "started automatic caller creation");
+                                Storage::disk('local')->append('innovaphonerequestlog.txt', "number:");
+                                Storage::disk('local')->append('innovaphonerequestlog.txt', json_encode($phonecall->e164));
+                                Storage::disk('local')->append('innovaphonerequestlog.txt', "prefix check:");
+                                Storage::disk('local')->append('innovaphonerequestlog.txt', json_encode(CallerPrefix::matchesAnyPrefix($phonecall->e164)));
+
+
+
                                 $caller = new Caller();
                                 $caller->name =  $phonecall->h323;
 
                                 if (!CallerPrefix::matchesAnyPrefix($phonecall->e164))
                                 {
+                                Storage::disk('local')->append('innovaphonerequestlog.txt', "number not matches any profix");
+
                                     $caller->number =  $phonecall->e164;
                                     $savecaller = true;
                                 }
