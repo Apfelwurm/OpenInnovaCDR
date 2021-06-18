@@ -24,6 +24,7 @@
 				<i class="fa fa-building fa-fw"></i> Organisation Units
 			</div>
 			<div class="card-body">
+				{{ $organisationUnits->links('vendor.pagination.default') }}
 				<table class="table table-striped table-hover table-responsive">
 					<thead>
 						<tr>
@@ -53,7 +54,7 @@
 						@endforeach
 					</tbody>
 				</table>
-				{{ $organisationUnits->links() }}
+				{{ $organisationUnits->links('vendor.pagination.default') }}
 			</div>
 		</div>
 

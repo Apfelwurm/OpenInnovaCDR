@@ -38,6 +38,7 @@
                         </div>
 
                     @else
+                    {{ $organisationUnits->links('vendor.pagination.default') }}
                     <table class="table table-striped table-hover table-responsive">
                         <thead>
                             <tr>
@@ -61,7 +62,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $organisationUnits->links() }}
+                    {{ $organisationUnits->links('vendor.pagination.default') }}
 
                     @endif
                     </div>

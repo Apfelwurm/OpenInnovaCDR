@@ -27,6 +27,7 @@
 
 
 
+                    {{ $unassignedCallers->links('vendor.pagination.default') }}
                     <table class="table table-striped table-hover table-responsive ">
                         <thead>
                             <tr>
@@ -53,7 +54,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $unassignedCallers->links() }}
+                    {{ $unassignedCallers->links('vendor.pagination.default') }}
 
 				</div>
 
@@ -67,6 +68,7 @@
                 <i class="fas fa-newspaper fa-fw"></i> Last Reports
             </div>
             <div class="card-body">
+                {{ $reports->links('vendor.pagination.default') }}
                 <table class="table table-striped table-hover table-responsive">
                     <thead>
                         <tr>
@@ -127,7 +129,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{ $reports->links() }}
+                {{ $reports->links('vendor.pagination.default') }}
             </div>
         </div>
 

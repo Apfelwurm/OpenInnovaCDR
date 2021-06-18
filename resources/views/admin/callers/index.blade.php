@@ -24,6 +24,7 @@
 				<i class="fa fa-phone fa-fw"></i> Callers
 			</div>
 			<div class="card-body">
+				{{ $callers->links('vendor.pagination.default') }}
 				<table class="table table-striped table-hover table-responsive">
 					<thead>
 						<tr>
@@ -71,7 +72,7 @@
 						@endforeach
 					</tbody>
 				</table>
-				{{ $callers->links() }}
+				{{ $callers->links('vendor.pagination.default') }}
 			</div>
 		</div>
 

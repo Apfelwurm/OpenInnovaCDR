@@ -24,6 +24,7 @@
 				<i class="fa fa-users fa-fw"></i> Users
 			</div>
 			<div class="card-body">
+				{{ $users->links('vendor.pagination.default') }}
 				<table class="table table-striped table-hover table-responsive">
 					<thead>
 						<tr>
@@ -54,7 +55,7 @@
 						@endforeach
 					</tbody>
 				</table>
-				{{ $users->links() }}
+				{{ $users->links('vendor.pagination.default') }}
 			</div>
 		</div>
 

@@ -24,6 +24,7 @@
 				<i class="fa fa-prescription fa-fw"></i> Caller Prefixes
 			</div>
 			<div class="card-body">
+				{{ $callerPrefixes->links('vendor.pagination.default') }}
 				<table class="table table-striped table-hover table-responsive">
 					<thead>
 						<tr>
@@ -53,7 +54,7 @@
 						@endforeach
 					</tbody>
 				</table>
-				{{ $callerPrefixes->links() }}
+				{{ $callerPrefixes->links('vendor.pagination.default') }}
 			</div>
 		</div>
 

@@ -26,6 +26,7 @@
                         <i class="fas fa-newspaper fa-fw"></i> Report Templates
                     </div>
                     <div class="card-body">
+                        {{ $reportTemplates->links('vendor.pagination.default') }}
                         <table class="table table-striped table-hover table-responsive">
                             <thead>
                                 <tr>
@@ -78,7 +79,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{ $reportTemplates->links() }}
+                        {{ $reportTemplates->links('vendor.pagination.default') }}
                     </div>
                 </div>
 
@@ -95,6 +96,7 @@
                         <i class="fas fa-newspaper fa-fw"></i> Reports
                     </div>
                     <div class="card-body">
+                        {{ $reports->links('vendor.pagination.default') }}
                         <table class="table table-striped table-hover table-responsive">
                             <thead>
                                 <tr>
@@ -158,7 +160,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{ $reports->links() }}
+                        {{ $reports->links('vendor.pagination.default') }}
                     </div>
                 </div>
 

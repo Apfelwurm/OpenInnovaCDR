@@ -24,6 +24,7 @@
 				<i class="fa fa-filter fa-fw"></i> Number Filter Settings
 			</div>
 			<div class="card-body">
+                {{ $numberFilterSettings->links('vendor.pagination.default') }}
 				<table class="table table-striped table-hover table-responsive">
 					<thead>
 						<tr>
@@ -92,7 +93,7 @@
 						@endforeach
 					</tbody>
 				</table>
-				{{ $numberFilterSettings->links() }}
+				{{ $numberFilterSettings->links('vendor.pagination.default') }}
 			</div>
 		</div>
 

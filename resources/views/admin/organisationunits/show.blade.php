@@ -29,6 +29,7 @@
 
 
 
+                    {{ $unassignedCallers->links('vendor.pagination.default') }}
                     <table class="table table-striped table-hover table-responsive">
                         <thead>
                             <tr>
@@ -57,7 +58,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $unassignedCallers->links() }}
+                    {{ $unassignedCallers->links('vendor.pagination.default') }}
 
 				</div>
 
@@ -91,6 +92,7 @@
 			</div>
 			<div class="card-body">
 				<div class="row">
+                    {{ $assignedCallers->links('vendor.pagination.default') }}
                     <table class="table table-striped table-hover table-responsive">
                         <thead>
                             <tr>
@@ -118,7 +120,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $assignedCallers->links() }}
+                    {{ $assignedCallers->links('vendor.pagination.default') }}
 				</div>
 
 			</div>
