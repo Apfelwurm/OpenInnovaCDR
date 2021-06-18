@@ -22,11 +22,23 @@
             <div class="col-12 col-sm-12">
 
                 <div class="card mb-3">
+
                     <div class="card-header">
-                        <i class="fas fa-newspaper fa-fw"></i> Report Templates
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <i class="fas fa-newspaper fa-fw"></i> Report Templates
+                            </div>
+                            <div class="col-sm-4">
+                                {{ $reportTemplates->links('vendor.pagination.default') }}
+                            </div>
+
+                        </div>
                     </div>
+
+
+
+
                     <div class="card-body">
-                        {{ $reportTemplates->links('vendor.pagination.default') }}
                         <table class="table table-striped table-hover table-responsive">
                             <thead>
                                 <tr>
@@ -93,10 +105,18 @@
 
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fas fa-newspaper fa-fw"></i> Reports
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <i class="fa fa-newspaper fa-fw"></i> Reports
+                            </div>
+                            <div class="col-sm-4">
+                                {{ $reports->links('vendor.pagination.default') }}
+                            </div>
+
+                        </div>
                     </div>
+
                     <div class="card-body">
-                        {{ $reports->links('vendor.pagination.default') }}
                         <table class="table table-striped table-hover table-responsive">
                             <thead>
                                 <tr>

@@ -21,15 +21,23 @@
 <div class="row">
 	<div class="col-sm-12 col-lg-8">
 		<div class="card mb-3">
-			<div class="card-header">
-				<i class="fa fa-phone fa-fw"></i> Assign Callers
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-8">
+				        <i class="fa fa-phone fa-fw"></i> Assign Callers
+                    </div>
+                    <div class="col-sm-4">
+                    {{ $unassignedCallers->links('vendor.pagination.default') }}
+                    </div>
+
+                </div>
 			</div>
+
 			<div class="card-body">
 				<div class="row">
 
 
 
-                    {{ $unassignedCallers->links('vendor.pagination.default') }}
                     <table class="table table-striped table-hover table-responsive">
                         <thead>
                             <tr>
@@ -87,12 +95,20 @@
 <div class="row">
 	<div class="col-sm-12 col-lg-8">
 		<div class="card mb-3">
-			<div class="card-header">
-				<i class="fa fa-phone fa-fw"></i> Assigned Callers
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-8">
+				        <i class="fa fa-phone fa-fw"></i> Assigned Callers
+                    </div>
+                    <div class="col-sm-4">
+                        {{ $assignedCallers->links('vendor.pagination.default') }}
+                    </div>
+
+                </div>
 			</div>
+
 			<div class="card-body">
 				<div class="row">
-                    {{ $assignedCallers->links('vendor.pagination.default') }}
                     <table class="table table-striped table-hover table-responsive">
                         <thead>
                             <tr>

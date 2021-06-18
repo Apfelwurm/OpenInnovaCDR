@@ -21,10 +21,17 @@
 
 		<div class="card mb-3">
 			<div class="card-header">
-				<i class="fa fa-filter fa-fw"></i> Number Filter Settings
+                <div class="row">
+                    <div class="col-sm-8">
+				        <i class="fa fa-filter fa-fw"></i> Number Filter Settings
+                    </div>
+                    <div class="col-sm-4">
+                        {{ $numberFilterSettings->links('vendor.pagination.default') }}
+                    </div>
+
+                </div>
 			</div>
 			<div class="card-body">
-                {{ $numberFilterSettings->links('vendor.pagination.default') }}
 				<table class="table table-striped table-hover table-responsive">
 					<thead>
 						<tr>

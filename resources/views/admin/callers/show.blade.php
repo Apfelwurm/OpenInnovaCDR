@@ -21,9 +21,22 @@
 <div class="row">
 	<div class="col-sm-12 col-lg-8">
 		<div class="card mb-3">
-			<div class="card-header">
-				<i class="fa fa-building fa-fw"></i> Assign Caller
+
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-8">
+				        <i class="fa fa-building fa-fw"></i> Assign Caller
+                    </div>
+                    <div class="col-sm-4">
+                        {{ $organisationUnits->links('vendor.pagination.default') }}
+
+                    </div>
+
+                </div>
 			</div>
+
+
+
 			<div class="card-body">
 				<div class="row">
                     <div class="col-sm-12 col-lg-4">
@@ -38,7 +51,6 @@
                         </div>
 
                     @else
-                    {{ $organisationUnits->links('vendor.pagination.default') }}
                     <table class="table table-striped table-hover table-responsive">
                         <thead>
                             <tr>

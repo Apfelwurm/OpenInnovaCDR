@@ -19,15 +19,21 @@
 <div class="row">
 	<div class="col-md-auto">
 		<div class="card mb-3">
-			<div class="card-header">
-				<i class="fa fa-phone fa-fw"></i> Unassigned Callers
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-8">
+				        <i class="fa fa-phone fa-fw"></i> Unassigned Callers
+                    </div>
+                    <div class="col-sm-4">
+                        {{ $unassignedCallers->links('vendor.pagination.default') }}
+                    </div>
+
+                </div>
 			</div>
+
 			<div class="card-body">
 				<div class="row">
 
-
-
-                    {{ $unassignedCallers->links('vendor.pagination.default') }}
                     <table class="table table-striped table-hover table-responsive ">
                         <thead>
                             <tr>
@@ -65,10 +71,17 @@
     <div class="col-md-auto">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fas fa-newspaper fa-fw"></i> Last Reports
-            </div>
+                <div class="row">
+                    <div class="col-sm-8">
+				        <i class="fa fa-newspaper fa-fw"></i> Last Reports
+                    </div>
+                    <div class="col-sm-4">
+                        {{ $reports->links('vendor.pagination.default') }}
+                    </div>
+
+                </div>
+			</div>
             <div class="card-body">
-                {{ $reports->links('vendor.pagination.default') }}
                 <table class="table table-striped table-hover table-responsive">
                     <thead>
                         <tr>

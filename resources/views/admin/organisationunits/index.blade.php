@@ -20,11 +20,19 @@
 	<div class="col-12 col-sm-8">
 
 		<div class="card mb-3">
-			<div class="card-header">
-				<i class="fa fa-building fa-fw"></i> Organisation Units
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-8">
+				        <i class="fa fa-building fa-fw"></i> Organisation Units
+                    </div>
+                    <div class="col-sm-4">
+                        {{ $organisationUnits->links('vendor.pagination.default') }}
+                    </div>
+
+                </div>
 			</div>
+
 			<div class="card-body">
-				{{ $organisationUnits->links('vendor.pagination.default') }}
 				<table class="table table-striped table-hover table-responsive">
 					<thead>
 						<tr>
