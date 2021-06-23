@@ -5,7 +5,7 @@ dev: env-file composer-install npm-install-dev use-dev-noproxyfile sail-up db-re
 
 # Make .env
 env-file:
-	cp .env.example src/.env
+	cp .env.example .env
 
 # Install PHP Dependencies via Composer
 composer-install:
