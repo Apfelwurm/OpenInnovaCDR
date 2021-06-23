@@ -109,3 +109,7 @@ db-regenerate:
 	./vendor/laravel/sail/bin/sail artisan migrate:reset \
     && ./vendor/laravel/sail/bin/sail artisan migrate \
     && ./vendor/laravel/sail/bin/sail artisan db:seed
+
+#generate dev key:
+key-dev:
+	chmod 777 $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))/.env && $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))/vendor/laravel/sail/bin/sail artisan key:generate && chmod 644 $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))/.env
