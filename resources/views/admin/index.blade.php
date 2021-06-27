@@ -22,6 +22,91 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-sm-8">
+				        <i class="fa fa-list-ul fa-fw"></i> Statistics
+                    </div>
+                    <div class="col-sm-4">
+                    </div>
+
+                </div>
+			</div>
+
+			<div class="card-body">
+				<div class="row">
+
+                    <table class="table table-striped table-hover table-responsive ">
+                        
+                        <tbody>
+                                <tr>
+                                    <td>
+                                    Total CDR entrys
+                                    </td>
+                                    <td>
+                                        {{ App\Models\PhoneCall::all()->count() }}
+                                    </td>                                    
+                                </tr>
+                                <tr>
+                                    <td>
+                                    Total Callers
+                                    </td>
+                                    <td>
+                                        {{ App\Models\Caller::all()->count() }}
+                                    </td>                                    
+                                </tr>
+                                <tr>
+                                    <td>
+                                    Total Organisation Units
+                                    </td>
+                                    <td>
+                                        {{ App\Models\OrganisationUnit::all()->count() }}
+                                    </td>                                    
+                                </tr>
+                                <tr>
+                                    <td>
+                                    Total Number Filter Settings
+                                    </td>
+                                    <td>
+                                        {{ App\Models\NumberFilterSetting::all()->count() }}
+                                    </td>                                    
+                                </tr>
+                                <tr>
+                                    <td>
+                                    Total Caller Prefixes
+                                    </td>
+                                    <td>
+                                        {{ App\Models\CallerPrefix::all()->count() }}
+                                    </td>                                    
+                                </tr>
+                                <tr>
+                                    <td>
+                                    Total Report Templates
+                                    </td>
+                                    <td>
+                                        {{ App\Models\ReportTemplate::all()->count() }}
+                                    </td>                                    
+                                </tr>
+                                <tr>
+                                    <td>
+                                    Total Reports
+                                    </td>
+                                    <td>
+                                        {{ App\Models\Report::all()->count() }}
+                                    </td>                                    
+                                </tr>
+                        </tbody>
+                    </table>
+                    
+
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+    <div class="col-md-auto">
+		<div class="card mb-3">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-8">
 				        <i class="fa fa-phone fa-fw"></i> Unassigned Callers
                     </div>
                     <div class="col-sm-4">
