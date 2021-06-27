@@ -14,6 +14,13 @@ composer-install:
     --user $(id -u):$(id -g) \
     composer install --ignore-platform-reqs --no-scripts
 
+# require PHP Dependencies via Composer usage make composer-require module=modulename
+composer-require:
+	docker run --rm --name compose-maintainence --interactive \
+    --volume $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST)))):/app \
+    --user $(id -u):$(id -g) composer require $(module) --ignore-platform-reqs --no-scripts
+
+
 # link dev Proxy Compose file
 use-dev-proxyfile:
 	[ -f docker-compose.yml ] && rm docker-compose.yml ; true

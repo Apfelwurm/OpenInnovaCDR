@@ -23,6 +23,7 @@ use App\Models\ReportOrganisationUnit;
 use App\Models\ReportPhoneCall;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+use PDF;
 
 class GenerateReport implements ShouldQueue
 {
@@ -294,7 +295,15 @@ class GenerateReport implements ShouldQueue
         Storage::disk('local')->append('innovaphonerequestlog.txt', "reportdata:");
         Storage::disk('local')->append('innovaphonerequestlog.txt', json_encode($reportData));
 
+        $pdfData = collect();
+        $pdfData->put('report'=>$this->report, 'reportdata'=>$reportData);
 
+        // share data to view
+        view()->share('reportdaata',$pdfData);
+        $pdf = PDF::loadView('reports.basicOU', $pdfData);
+
+        // download PDF file with download method
+        $pdf->save('reports/report_'.Carbon::create($this->report->startdate)->toDateString() .'_--_'.Carbon::create($this->report->enddate)->toDateString() . '.pdf');
 
         $this->report->status = "finished";
         $this->report->save();
