@@ -157,3 +157,13 @@ db-regenerate:
 #generate dev key:
 key-generate:
 	$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))/vendor/laravel/sail/bin/sail artisan key:generate
+
+
+# Build docs container
+docs-build:
+	docker pull sphinxdoc/sphinx:latest
+	docker build -t openinnovacdr_docs docs
+# Make Documentation
+docs-html:
+	docker run --rm -v $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))/docs:/docs openinnovacdr_docs make html
+
