@@ -1,11 +1,25 @@
-#pull up dev environment from scratch
-dev: env-file composer-install npm-install-dev use-dev-noproxyfile sail-up db-regenerate
+# pull up dev environment from scratch
+dev: env-file-dev composer-install npm-install-dev use-dev-noproxyfile sail-up-deattached key-generate db-regenerate
+
 #pull up dev environment from scratch behind proxy  -  usage make dev-proxy proxy=http://proxy.local:3128
-#dev-proxy: env-file composer-install npm-install-dev-proxy use-dev-proxyfile replace-devproxy sail-up db-regenerate
+#dev-proxy: env-file composer-install-proxy npm-install-dev-proxy use-dev-proxyfile replace-devproxy sail-up db-regenerate
+
+#pull up prd environment from scratch (please use make env-file-prd and edit your .env file, then run this!)
+prd: composer-install npm-install use-prd-noproxyfile sail-up-deattached key-generate db-regenerate
+
+
+#pull up prd environment from scratch (please use make env-file-prd and edit your .env file, then run this!) behind proxy
+#usage make dev-proxy proxy=http://proxy.local:3128
+#prd-proxy: composer-install-proxy npm-install-proxy use-prd-proxyfile replace-prdproxy prd-up key-generate db-regenerate
 
 # Make .env
-env-file:
-	cp .env.example .env
+env-file-dev:
+	cp .env.dev.example .env
+
+# Make .env
+env-file-prd:
+	cp .env.prd.example .env
+
 
 # Install PHP Dependencies via Composer
 composer-install:
@@ -31,6 +45,17 @@ use-dev-noproxyfile:
 	[ -f docker-compose.yml ] && rm docker-compose.yml ; true
 	ln -s docker-compose_noproxy.yml docker-compose.yml
 
+
+# link prd Proxy Compose file
+use-prd-proxyfile:
+	[ -f docker-compose.yml ] && rm docker-compose.yml ; true
+	ln -s docker-compose_prd_proxy.yml docker-compose.yml
+
+# link prd no Proxy Compose file
+use-prd-noproxyfile:
+	[ -f docker-compose.yml ] && rm docker-compose.yml ; true
+	ln -s docker-compose_prd_noproxy.yml docker-compose.yml
+
 # replace proxy in dev compose file -  usage make replace-devproxy proxy=http://proxy.local:3128
 replace-devproxy:
 	sed -i 's|https_proxy: .*$$|https_proxy: $(proxy)|g' docker-compose_proxy.yml
@@ -38,9 +63,17 @@ replace-devproxy:
 	sed -i 's|https_proxy .*$$|https_proxy $(proxy)|g' docker_proxy/Dockerfile
 	sed -i 's|http_proxy .*$$|http_proxy $(proxy)|g' docker_proxy/Dockerfile
 
+# replace proxy in dev compose file -  usage make replace-devproxy proxy=http://proxy.local:3128
+replace-prdproxy:
+	sed -i 's|https_proxy: .*$$|https_proxy: $(proxy)|g' docker-compose_prd_proxy.yml
+	sed -i 's|http_proxy: .*$$|http_proxy: $(proxy)|g' docker-compose_prd_proxy.yml
+	sed -i 's|https_proxy .*$$|https_proxy $(proxy)|g' docker_prd_proxy/Dockerfile
+	sed -i 's|http_proxy .*$$|http_proxy $(proxy)|g' docker_prd_proxy/Dockerfile
+
 # Permissions - docker Dev
 permissions:
 	chown -R 1000:1000 storage bootstrap/cache
+	chown -R 1000:1000 .env
 	chgrp -R 1000 storage bootstrap/cache
 	chmod -R ug+rwx storage bootstrap/cache
 
@@ -83,6 +116,9 @@ sail-command:
 	$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))/vendor/laravel/sail/bin/sail $(command)
 
 
+prd-up:
+	docker-compose up -d
+
 # Install JS Dependencies via NPM
 npm-install:
 	docker run --rm --name js-maintainence --interactive \
@@ -117,6 +153,7 @@ db-regenerate:
     && ./vendor/laravel/sail/bin/sail artisan migrate \
     && ./vendor/laravel/sail/bin/sail artisan db:seed
 
+
 #generate dev key:
-key-dev:
-	chmod 777 $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))/.env && $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))/vendor/laravel/sail/bin/sail artisan key:generate && chmod 644 $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))/.env
+key-generate:
+	$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))/vendor/laravel/sail/bin/sail artisan key:generate

@@ -1,0 +1,44 @@
+version: '3'
+services:
+    openinnovacdr:
+        build:
+            context: ./docker_prd_proxy
+            dockerfile: Dockerfile
+            args:
+                NGINX_PORT: '${NGINX_PORT}'
+                PHP_Timezone: '${PHP_Timezone}'
+        ports:
+            - '${NGINX_PORT:-80}:80'
+        environment:
+            https_proxy: http://proxy.local:3128
+            http_proxy: http://proxy.local:3128
+        # volumes:
+        #     - '.:/var/www/html'
+        networks:
+            - openinnovacdr
+        depends_on:
+            - mysql
+    openinnovacdr_mysql:
+        image: 'mysql:8.0'
+        ports:
+            - '${FORWARD_DB_PORT:-3306}:3306'
+        environment:
+            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_DATABASE: '${DB_DATABASE}'
+            MYSQL_USER: '${DB_USERNAME}'
+            MYSQL_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+        volumes:
+            - 'openinnovacdr_mysql:/var/lib/mysql'
+        networks:
+            - openinnovacdr
+        healthcheck:
+          test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
+          retries: 3
+          timeout: 5s
+networks:
+  openinnovacdr:
+        driver: bridge
+volumes:
+  openinnovacdr_mysql:
+        driver: local
