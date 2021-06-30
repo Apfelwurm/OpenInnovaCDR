@@ -3,15 +3,15 @@ version: '3'
 services:
     openinnovacdr:
         build:
-            context: ./docker_prd
-            dockerfile: Dockerfile
+            context: .
+            dockerfile: ./docker_prd/Dockerfile
             args:
-                NGINX_PORT: '${NGINX_PORT}'
                 PHP_Timezone: '${PHP_Timezone}'
         ports:
-            - '${NGINX_PORT:-8081}:8081'
+            - '${NGINX_PORT}:8080'
         environment:
-            WWWUSER: '${WWWUSER}'
+            DB_HOST: '${DB_HOST}'
+            DB_PORT: '${DB_PORT}'
         # volumes:
         #     - '.:/var/www/html'
         networks:

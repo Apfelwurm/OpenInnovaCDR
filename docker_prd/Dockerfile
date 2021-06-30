@@ -1,8 +1,7 @@
 FROM alpine:3.13
 
 LABEL maintainer="Apfelwurm<Alexander@volzit.de>"
-ARG PHP_VERSION="8.0.2-r0"
-ARG NGINX_PORT="8081"
+ARG PHP_VERSION="8.0.6-r0"
 ARG PHP_Timezone="UTC"
 
 ENV TZ=UTC
@@ -37,28 +36,26 @@ RUN apk --no-cache add php8=${PHP_VERSION} \
     php8-xmlwriter \
     php8-tokenizer \
     php8-pdo_mysql \
-    nginx supervisor curl tzdata htop dcron
-
+    nginx supervisor curl tzdata htop dcron bash
 
 RUN rm /etc/nginx/conf.d/default.conf
 
 # Symlink php8 => php
 RUN ln -s /usr/bin/php8 /usr/bin/php
 
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
+COPY docker_prd/nginx.conf /etc/nginx/nginx.conf
+COPY docker_prd/fpm-pool.conf /etc/php8/php-fpm.d/www.conf
+COPY docker_prd/php.ini /etc/php8/conf.d/99-openinnovacdr.ini
+COPY docker_prd/start-container /usr/local/bin/start-container
+COPY docker_prd/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY docker_prd/wait-for.sh /usr/local/bin/wait-for.sh
+COPY docker_prd/start-supervisord /usr/local/bin/start-supervisord
 
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY fpm-pool.conf /etc/php8/php-fpm.d/www.conf
-COPY php.ini /etc/php8/conf.d/99-openinnovacdr.ini
-COPY start-container /usr/local/bin/start-container
-COPY start-nginx /usr/local/bin/start-nginx
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
-RUN sed -i "s|%REPLACEPORT%|${NGINX_PORT}|g" /etc/nginx/nginx.conf
 RUN sed -i "s|%REPLACETIMEZONE%|${PHP_Timezone}|g" /etc/php8/conf.d/99-openinnovacdr.ini
 
 RUN chmod +x /usr/local/bin/start-container
-RUN chmod +x /usr/local/bin/start-nginx
+RUN chmod +x /usr/local/bin/wait-for.sh
+RUN chmod +x /usr/local/bin/start-supervisord
 
 # Set working directory
 WORKDIR /var/www/html
@@ -70,7 +67,7 @@ RUN chown -R nobody.nobody /var/www/html && \
 
 USER nobody
 WORKDIR /var/www/html
-COPY --chown=nobody ../ /var/www/html/
+COPY --chown=nobody . /var/www/html/
 
 RUN rm -rf /var/www/html/docker*
 
