@@ -40,8 +40,8 @@ replace-devproxy:
 
 # Permissions - docker Dev
 permissions:
-	chown -R 1337:1337 storage bootstrap/cache
-	chgrp -R 1337 storage bootstrap/cache
+	chown -R 1000:1000 storage bootstrap/cache
+	chgrp -R 1000 storage bootstrap/cache
 	chmod -R ug+rwx storage bootstrap/cache
 
 # Permissions custom - usage make permissions-custom user=username group=groupname
