@@ -10,7 +10,7 @@
 		<div class="collapse navbar-collapse" id="topbar-navigation">
 			<ul class="navbar-nav ml-auto">
 				@if (Auth::check())
-					@include ('layouts._partials.user-navigation')
+					{{-- @include ('layouts._partials.user-navigation') --}}
 				@endif
 			</ul>
 		</div><!-- /.navbar-collapse -->

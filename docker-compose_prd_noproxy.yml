@@ -13,8 +13,8 @@ services:
             DB_HOST: '${DB_HOST}'
             DB_PORT: '${DB_PORT}'
             TZ: '${SYS_TIMEZONE}'
-        # volumes:
-        #     - '.:/var/www/html'
+        volumes:
+            - 'openinnovacdr_storage:/var/www/html/storage'
         networks:
             - openinnovacdr
         depends_on:
@@ -42,4 +42,6 @@ networks:
         driver: bridge
 volumes:
   openinnovacdr_mysql:
+        driver: local
+  openinnovacdr_storage:
         driver: local
