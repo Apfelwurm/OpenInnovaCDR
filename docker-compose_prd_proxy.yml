@@ -13,6 +13,7 @@ services:
             http_proxy: http://proxy.local:3128
             DB_HOST: '${DB_HOST}'
             DB_PORT: '${DB_PORT}'
+            TZ: '${SYS_TIMEZONE}'
         # volumes:
         #     - '.:/var/www/html'
         networks:

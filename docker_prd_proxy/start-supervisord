@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+php /var/www/html/artisan migrate
+
+	if [ ! -f /var/www/html/storage/app/.initialseed ]; then
+        php /var/www/html/artisan db:seed
+        touch /var/www/html/storage/app/.initialseed
+    fi
+
+
+/usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
