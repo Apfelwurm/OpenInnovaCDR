@@ -19,7 +19,7 @@ services:
         networks:
             - openinnovacdr
         depends_on:
-            - mysql
+            - openinnovacdr_mysql
     openinnovacdr_mysql:
         image: 'mysql:8.0'
         ports:

@@ -6,8 +6,6 @@ ARG PHP_Timezone="UTC"
 
 ENV TZ=UTC
 
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
 RUN apk --no-cache add php8=${PHP_VERSION} \
     php8-ctype \
     php8-curl \
@@ -40,6 +38,8 @@ RUN apk --no-cache add php8=${PHP_VERSION} \
 
 RUN rm /etc/nginx/conf.d/default.conf
 
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 # Symlink php8 => php
 RUN ln -s /usr/bin/php8 /usr/bin/php
 
@@ -70,6 +70,7 @@ WORKDIR /var/www/html
 COPY --chown=nobody . /var/www/html/
 
 RUN rm -rf /var/www/html/docker*
+RUN rm -rf /var/www/html/docs*
 
 EXPOSE ${NGINX_PORT}
 

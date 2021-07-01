@@ -9,7 +9,6 @@ ENV http_proxy http://proxy.local:3128
 
 ENV TZ=UTC
 
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apk --no-cache add php8=${PHP_VERSION} \
     php8-ctype \
@@ -40,6 +39,8 @@ RUN apk --no-cache add php8=${PHP_VERSION} \
     php8-tokenizer \
     php8-pdo_mysql \
     nginx supervisor curl tzdata htop dcron bash
+
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN rm /etc/nginx/conf.d/default.conf
 
@@ -73,6 +74,7 @@ WORKDIR /var/www/html
 COPY --chown=nobody . /var/www/html/
 
 RUN rm -rf /var/www/html/docker*
+RUN rm -rf /var/www/html/docs*
 
 EXPOSE ${NGINX_PORT}
 

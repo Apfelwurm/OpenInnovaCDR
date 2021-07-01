@@ -1,16 +1,15 @@
 # pull up dev environment from scratch
-dev: env-file-dev composer-install npm-install-dev use-dev-noproxyfile sail-up-deattached key-generate db-regenerate
+dev: env-file-dev composer-install npm-install-dev use-dev-noproxyfile permissions key-generate sail-up-deattached db-regenerate
 
 #pull up dev environment from scratch behind proxy  -  usage make dev-proxy proxy=http://proxy.local:3128
-#dev-proxy: env-file composer-install-proxy npm-install-dev-proxy use-dev-proxyfile replace-devproxy sail-up db-regenerate
+dev-proxy: env-file composer-install-proxy npm-install-dev-proxy use-dev-proxyfile permissions replace-devproxy key-generate sail-up-deattached db-regenerate
 
 #pull up prd environment from scratch (please use make env-file-prd and edit your .env file, then run this!)
-prd: composer-install npm-install use-prd-noproxyfile sail-up-deattached key-generate db-regenerate
-
+prd: composer-install npm-install use-prd-noproxyfile replace-prdproxy key-generate prd-up
 
 #pull up prd environment from scratch (please use make env-file-prd and edit your .env file, then run this!) behind proxy
-#usage make dev-proxy proxy=http://proxy.local:3128
-#prd-proxy: composer-install-proxy npm-install-proxy use-prd-proxyfile replace-prdproxy prd-up key-generate db-regenerate
+#usage make prd-proxy proxy=http://proxy.local:3128
+prd-proxy: composer-install-proxy npm-install-proxy use-prd-proxyfile replace-prdproxy key-generate prd-up
 
 # Make .env
 env-file-dev:
@@ -28,12 +27,26 @@ composer-install:
     --user $(id -u):$(id -g) \
     composer install --ignore-platform-reqs --no-scripts
 
+# Install PHP Dependencies via Composer via proxy -  usage make composer-install-proxy proxy=http://proxy.local:3128
+composer-install-proxy:
+	docker run --rm --name compose-maintainence --interactive \
+    --volume $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST)))):/app \
+    -e https_proxy=$(proxy) -e http_proxy=$(proxy) \
+    --user $(id -u):$(id -g) \
+    composer install --ignore-platform-reqs --no-scripts
+
 # require PHP Dependencies via Composer usage make composer-require module=modulename
 composer-require:
 	docker run --rm --name compose-maintainence --interactive \
     --volume $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST)))):/app \
     --user $(id -u):$(id -g) composer require $(module) --ignore-platform-reqs --no-scripts
 
+# require PHP Dependencies via Composer usage make composer-require module=modulename proxy=http://proxy.local:3128
+composer-require-proxy:
+	docker run --rm --name compose-maintainence --interactive \
+    --volume $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST)))):/app \
+    -e https_proxy=$(proxy) -e http_proxy=$(proxy) \
+    --user $(id -u):$(id -g) composer require $(module) --ignore-platform-reqs --no-scripts
 
 # link dev Proxy Compose file
 use-dev-proxyfile:
@@ -117,7 +130,7 @@ sail-command:
 
 
 prd-up:
-	docker-compose up -d
+	docker-compose up -d --build
 
 # Install JS Dependencies via NPM
 npm-install:
@@ -153,11 +166,23 @@ db-regenerate:
     && ./vendor/laravel/sail/bin/sail artisan migrate \
     && ./vendor/laravel/sail/bin/sail artisan db:seed
 
+show-requestlog-prd:
+	docker-compose exec -T openinnovacdr /bin/sh -c "cat storage/app/innovaphonerequestlog.txt"
 
-#generate dev key:
+show-laravellog-prd:
+	docker-compose exec -T openinnovacdr /bin/sh -c "cat storage/logs/laravel.log"
+
+follow-requestlog-prd:
+	docker-compose exec -T openinnovacdr /bin/sh -c "tail -f storage/app/innovaphonerequestlog.txt"
+
+follow-laravellog-prd:
+	docker-compose exec -T openinnovacdr /bin/sh -c "tail -f storage/logs/laravel.log"
+
+#generate  key:
 key-generate:
-	$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))/vendor/laravel/sail/bin/sail artisan key:generate
-
+	docker run --rm --name composer key generate --interactive \
+	-v $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST)))):/app \
+    --user $(id -u):$(id -g) php:8-fpm-alpine /bin/sh -c "cd /app && php artisan key:generate"
 
 # Build docs container
 docs-build:

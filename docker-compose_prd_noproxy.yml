@@ -18,8 +18,8 @@ services:
         networks:
             - openinnovacdr
         depends_on:
-            - mysql
-    mysql:
+            - openinnovacdr_mysql
+            openinnovacdr_mysql:
         image: 'mysql:8.0'
         ports:
             - '${FORWARD_DB_PORT:-3306}:3306'
